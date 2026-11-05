@@ -1,0 +1,21 @@
+EL ELFO EXPRESS - PÁGINA WEB
+============================
+
+Cómo subirla:
+  Sube TODA esta carpeta (index.html + img + videos) a tu hosting.
+  La página principal es index.html.
+
+Cómo agregar los videos de las bromas:
+  1. Copia cada video a la carpeta  videos/bromas/
+     (por ejemplo: videos/bromas/broma-01.mp4)
+  2. Abre index.html y busca la lista BROMAS.
+  3. En la broma que corresponda, escribe la ruta en "video":
+        "video": "videos/bromas/broma-01.mp4"
+
+Cómo agregar fotos o videos a la galería:
+  Copia el archivo a img/galeria/ (fotos) o videos/galeria/ (videos)
+  y agrégalo en la lista GALERIA dentro de index.html.
+
+WhatsApp:
+  En index.html, escribe tu número en  const WHATSAPP = "";
+  (con lada de país, por ejemplo "5218112345678").
