@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bromas · El Elfo Express</title>
+<meta name="description" content="El Elfo Express: la caja con todo lo necesario para las travesuras de tu elfo de Navidad, con videos paso a paso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="rayas"></div>
+<header>
+  <div class="barra">
+    <a class="marca" href="index.html"><span class="p">El </span><span class="l">ELFO</span><span class="p"> Express</span></a>
+    <nav>
+      <a href="index.html#inicio" data-sec="inicio">Inicio</a>
+      <a href="bromas.html" data-sec="bromas" class="activo">Bromas</a>
+      <a href="galeria.html" data-sec="galeria">Galería</a>
+    </nav>
+  </div>
+</header>
+
+<div class="candado" id="candado">
+  <form class="tarjeta" id="form-codigo" autocomplete="off">
+    <img src="img/elfo-caja.png" alt="">
+    <span class="etiqueta">Solo para familias con su caja</span>
+    <h2>¡Hola, ayudante del elfo!</h2>
+    <p>Escribe el código mágico que viene en tu caja para ver las travesuras.</p>
+    <label for="codigo" class="sr">Código mágico</label>
+    <input id="codigo" name="codigo" type="text" inputmode="text" placeholder="Tu código" required>
+    <button class="btn btn-rojo" type="submit">Entrar</button>
+    <p class="error" id="error-codigo" role="alert"></p>
+    <p class="ayuda">¿No tienes tu caja? <a href="index.html#precios">Aparta la tuya aquí</a></p>
+  </form>
+</div>
+<main>
+<!-- ================= SECCIÓN 2: BROMAS ================= -->
+<section id="bromas" class="bromas-bg">
+  <div class="wrap">
+    <div class="centro">
+      <span class="sub">Videos paso a paso</span>
+      <h2>Bromas</h2>
+      <p class="intro">Escoge una travesura y mira cómo se hace. Cada una tiene su video, los pasos y su tarjeta.</p>
+    </div>
+    <div class="rejilla" id="rejilla"></div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <a class="marca" href="index.html"><span class="p">El </span><span class="l">ELFO</span><span class="p"> Express</span></a>
+  <p>Caja Mágica de Travesuras · Hecho con magia del Polo Norte</p>
+  <div class="redes">
+    <a href="https://www.instagram.com/elfoexpress" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> @elfoexpress</a>
+    <a href="https://wa.me/524491378630?text=Hola%2C%20me%20interesa%20adquirir%20una%20Caja%20M%C3%A1gica%20%F0%9F%8E%84" target="_blank" rel="noopener">WhatsApp 449 137 8630</a>
+    <a href="https://wa.me/524498051413?text=Hola%2C%20me%20interesa%20adquirir%20una%20Caja%20M%C3%A1gica%20%F0%9F%8E%84" target="_blank" rel="noopener">WhatsApp 449 805 1413</a>
+  </div>
+</footer>
+<div class="rayas"></div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Detalle">
+  <div class="caja"><button class="cerrar" id="cerrar" aria-label="Cerrar">×</button><div class="cuerpo" id="modal-cuerpo"></div></div>
+</div>
+
+<script>
+/* ============ CONFIGURACIÓN (edita aquí) ============ */
+// Tu número de WhatsApp con lada de país, sin espacios. Ejemplo: "5218112345678"
+const WHATSAPP = "524491378630";
+const WHATSAPP_2 = "524498051413";
+const INSTAGRAM = "https://www.instagram.com/elfoexpress";
+const MENSAJE = "Hola, me interesa adquirir una Caja Mágica 🎄";
+
+// CÓDIGO MÁGICO para entrar a las bromas (el que imprimes en la caja). Puedes cambiarlo.
+const CODIGO = "MAGIA2026";
+
+// BROMAS: para agregar un video, escribe la ruta en "video", por ejemplo "videos/bromas/broma-01.mp4"
+const BROMAS = [
+ {
+  "n": 1,
+  "titulo": "¡Ya llegué!",
+  "necesitas": "el sobre de MDF de la caja",
+  "pasos": [
+   "Pon al elfo con el sobre de MDF en las manos.",
+   "Adentro viene la carta para tu hijo y las instrucciones del elfo.",
+   "Llenen juntos la tarjeta con el nombre del elfo."
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-01.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-01.png",
+  "video": ""
+ },
+ {
+  "n": 2,
+  "titulo": "Baño de malvaviscos",
+  "necesitas": "malvaviscos y un tazón grande",
+  "pasos": [
+   "Llena un tazón grande con malvaviscos.",
+   "Mete al elfo como si se estuviera bañando.",
+   "Ponle un malvavisco en la cabeza, ¡como espuma!"
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-02.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-02.png",
+  "video": ""
+ },
+ {
+  "n": 3,
+  "titulo": "¡Lluvia de grageas!",
+  "necesitas": "grageas de colores y diurex",
+  "pasos": [
+   "Cubre un pedazo de diurex con grageas de colores.",
+   "Pégalo en la boca del grifo, ¡como si salieran de ahí!",
+   "Llena el lavabo de grageas y pon al elfo junto al grifo."
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-03.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-03.png",
+  "video": ""
+ },
+ {
+  "n": 4,
+  "titulo": "Bigotes por todos lados",
+  "necesitas": "bigotes de papel y cinta",
+  "pasos": [
+   "Recorta los bigotes de papel de la caja.",
+   "Pégalos con cinta en las fotos de la familia.",
+   "Ponle uno al elfo y déjalo junto a las fotos."
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-04.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-04.png",
+  "video": ""
+ },
+ {
+  "n": 5,
+  "titulo": "Ojitos en el refri",
+  "necesitas": "ojos saltones y fruta",
+  "pasos": [
+   "Pega ojos saltones en fruta, huevos o yogures.",
+   "Acomódalos en el refri para que «miren» al abrir.",
+   "Deja al elfo escondido junto a ellos."
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-05.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-05.png",
+  "video": ""
+ },
+ {
+  "n": 6,
+  "titulo": "¡Leche verde!",
+  "necesitas": "colorante verde y leche",
+  "pasos": [
+   "Pon 2 o 3 gotas de colorante en la leche.",
+   "Mezcla y regrésala al refri.",
+   "Deja al elfo junto a la leche con el colorante."
+  ],
+  "extra": "¡Hagan también el desayuno de colores!",
+  "img": "img/bromas/broma-06.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-06.png",
+  "video": ""
+ },
+ {
+  "n": 7,
+  "titulo": "Telaraña de estambre",
+  "necesitas": "estambre rojo y cinta",
+  "pasos": [
+   "Pega una punta del estambre en la pared con cinta.",
+   "Crúzalo en zigzag de lado a lado del pasillo.",
+   "Deja al elfo en medio de la telaraña."
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-07.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-07.png",
+  "video": ""
+ },
+ {
+  "n": 8,
+  "titulo": "Tirolesa",
+  "necesitas": "escarcha navideña y gancho de MDF",
+  "pasos": [
+   "Amarra la escarcha navideña entre dos sillas o muebles.",
+   "Cuelga al elfo del gancho de MDF con listón rojo.",
+   "Engancha el gancho en la escarcha, ¡listo para deslizarse!"
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-08.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-08.png",
+  "video": ""
+ },
+ {
+  "n": 9,
+  "titulo": "¡El elfo Picasso!",
+  "necesitas": "pincelito, lienzo y tripié de la caja",
+  "pasos": [
+   "Arma el tripié y pon el lienzo encima.",
+   "Pinta un dibujito sencillo en el lienzo.",
+   "Pon al elfo con el pincel en la mano, ¡como gran artista!"
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-09.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-09.png",
+  "video": ""
+ },
+ {
+  "n": 10,
+  "titulo": "Todo envuelto",
+  "necesitas": "papel de regalo y cinta",
+  "pasos": [
+   "Escoge algo de casa: el control, un zapato o una taza.",
+   "Envuélvelo con papel de regalo y moño.",
+   "Deja al elfo junto al regalo con la cinta."
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-10.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-10.png",
+  "video": ""
+ },
+ {
+  "n": 11,
+  "titulo": "Fiesta de globos",
+  "necesitas": "globos de colores",
+  "pasos": [
+   "Infla los globos de la caja.",
+   "Llena con ellos el cuarto o la entrada de la casa.",
+   "Amarra al elfo a un globo como si fuera a volar."
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-11.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-11.png",
+  "video": ""
+ },
+ {
+  "n": 12,
+  "titulo": "Ángel de nieve",
+  "necesitas": "harina o azúcar",
+  "pasos": [
+   "Espolvorea harina sobre la mesa o una charola.",
+   "Acuesta al elfo y mueve sus brazos y piernas.",
+   "Levántalo con cuidado: ¡quedó un ángel de nieve!"
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-12.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-12.png",
+  "video": ""
+ },
+ {
+  "n": 13,
+  "titulo": "Noche de cine",
+  "necesitas": "palomitas y juguetes",
+  "pasos": [
+   "Prepara un platito con palomitas.",
+   "Sienta al elfo frente a la tele con los juguetes.",
+   "Pon una película navideña en la pantalla."
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-13.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-13.png",
+  "video": ""
+ },
+ {
+  "n": 14,
+  "titulo": "¡Elfos en el espejo!",
+  "necesitas": "plumones para vidrio",
+  "pasos": [
+   "Dibuja en el espejo el cuerpo de un elfo con plumones.",
+   "Deja el círculo de la cara sin pintar.",
+   "Los niños se paran enfrente: ¡su cara completa al elfo!"
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-14.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-14.png",
+  "video": ""
+ },
+ {
+  "n": 15,
+  "titulo": "La playera de papá",
+  "necesitas": "la playerita de la caja",
+  "pasos": [
+   "Ponle al elfo la playerita que viene en tu caja.",
+   "Déjalo junto al cajón de la ropa de papá.",
+   "¡Parece que recortó la playera de papá!"
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-15.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-15.png",
+  "video": ""
+ },
+ {
+  "n": 16,
+  "titulo": "¡Pica, pica!",
+  "necesitas": "Cheetos picantes y el fuego impreso",
+  "pasos": [
+   "Mete al elfo en una bolsa abierta de Cheetos picantes.",
+   "Pega el fuego impreso de la caja saliendo de sus pompis.",
+   "Riega unos Cheetos alrededor. ¡Le picó mucho!"
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-16.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-16.png",
+  "video": ""
+ },
+ {
+  "n": 17,
+  "titulo": "¡Día de alberca!",
+  "necesitas": "la dona inflable de la caja y agua",
+  "pasos": [
+   "Llena el lavabo con un poco de agua.",
+   "Pon la dona inflable flotando en el agua.",
+   "Sienta al elfo en la dona, ¡como de vacaciones!"
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-17.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-17.png",
+  "video": ""
+ },
+ {
+  "n": 18,
+  "titulo": "¡Hasta el próximo año!",
+  "necesitas": "la carta de despedida",
+  "pasos": [
+   "La noche del 23, deja al elfo con su carta.",
+   "Ponle una maletita o un regalito de despedida.",
+   "Al despertar, ¡ya voló de regreso al Polo Norte!"
+  ],
+  "extra": "",
+  "img": "img/bromas/broma-18.jpg",
+  "tarjeta": "img/tarjetas/tarjeta-18.png",
+  "video": ""
+ }
+];
+
+/* ==================================================== */
+
+const PLAY='<svg width="18" height="18" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#fff"/></svg>';
+const PLAY_G='<svg width="30" height="30" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#fff"/></svg>';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// WhatsApp
+document.querySelectorAll(".js-whatsapp").forEach(a=>{
+  if(WHATSAPP){a.href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(MENSAJE);a.target="_blank";a.rel="noopener";}
+  else a.href="#precios";
+});
+
+// Candado con código
+const candado=document.getElementById("candado");
+const limpiar=t=>String(t).trim().toUpperCase().replace(/\s+/g,"");
+function abiertas(){try{return localStorage.getItem("elfo-codigo")===limpiar(CODIGO);}catch(e){return false;}}
+if(abiertas()) candado.hidden=true; else document.body.style.overflow="hidden";
+document.getElementById("form-codigo").addEventListener("submit",e=>{
+  e.preventDefault();
+  const v=limpiar(document.getElementById("codigo").value);
+  if(v===limpiar(CODIGO)){
+    try{localStorage.setItem("elfo-codigo",v);}catch(err){}
+    candado.hidden=true; document.body.style.overflow="";
+  } else {
+    document.getElementById("error-codigo").textContent="Ese código no es correcto. Revísalo en tu caja e inténtalo otra vez.";
+  }
+});
+
+// Rejilla de bromas
+const rej=document.getElementById("rejilla");
+BROMAS.forEach((b,i)=>{
+  const el=document.createElement("button");
+  el.className="broma"; el.type="button";
+  el.innerHTML=`<img src="${b.img}" alt="" loading="lazy"><span class="play">${PLAY}</span><span class="info"><span class="num">#${b.n}</span><span class="tit">${esc(b.titulo)}</span></span>`;
+  el.addEventListener("click",()=>abrirBroma(i));
+  rej.appendChild(el);
+});
+
+// Modal
+const modal=document.getElementById("modal"), cuerpo=document.getElementById("modal-cuerpo");
+function abrir(clase){modal.className="modal abierto "+(clase||"");document.body.style.overflow="hidden";document.getElementById("cerrar").focus();}
+function cerrar(){modal.className="modal";cuerpo.innerHTML="";document.body.style.overflow="";}
+document.getElementById("cerrar").onclick=cerrar;
+modal.addEventListener("click",e=>{if(e.target===modal)cerrar();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")cerrar();});
+
+function abrirBroma(i){
+  const b=BROMAS[i];
+  const video=b.video
+    ? `<video src="${b.video}" controls playsinline autoplay></video>`
+    : `<div class="prox"><img src="${b.img}" alt=""><b>Video próximamente</b><span>Mientras tanto, sigue los pasos de abajo o la tarjeta.</span></div>`;
+  cuerpo.innerHTML=`<div class="video">${video}</div>
+    <div class="detalle"><span class="etiqueta">Travesura #${b.n}</span><h3>${esc(b.titulo)}</h3>
+    <div class="nec"><strong>Necesitas:</strong> ${esc(b.necesitas)}</div>
+    <ol>${b.pasos.map(p=>`<li><span>${esc(p)}</span></li>`).join("")}</ol>
+    ${b.extra?`<div class="extra">★ Extra: ${esc(b.extra)}</div>`:""}
+    <button class="btn btn-borde ver-tarjeta" type="button">Ver tarjeta</button>
+    <img class="tarjeta-img" src="${b.tarjeta}" alt="Tarjeta de la travesura ${esc(b.titulo)}"></div>`;
+  cuerpo.querySelector(".ver-tarjeta").onclick=function(){const im=cuerpo.querySelector(".tarjeta-img");im.classList.toggle("visible");this.textContent=im.classList.contains("visible")?"Ocultar tarjeta":"Ver tarjeta";};
+  abrir();
+}
+</script>
+</body>
+</html>

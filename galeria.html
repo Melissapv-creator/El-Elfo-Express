@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galería · El Elfo Express</title>
+<meta name="description" content="El Elfo Express: la caja con todo lo necesario para las travesuras de tu elfo de Navidad, con videos paso a paso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="rayas"></div>
+<header>
+  <div class="barra">
+    <a class="marca" href="index.html"><span class="p">El </span><span class="l">ELFO</span><span class="p"> Express</span></a>
+    <nav>
+      <a href="index.html#inicio" data-sec="inicio">Inicio</a>
+      <a href="bromas.html" data-sec="bromas">Bromas</a>
+      <a href="galeria.html" data-sec="galeria" class="activo">Galería</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ================= SECCIÓN 3: GALERÍA ================= -->
+<section id="galeria">
+  <div class="wrap">
+    <div class="centro">
+      <span class="sub">Conoce a nuestro elfo</span>
+      <h2>Galería</h2>
+      <p class="intro">Fotos, ilustraciones y caricaturas de nuestro elfo travieso.</p>
+    </div>
+    <div class="carrusel-bloque">
+      <div class="carrusel-tit"><h3>Caricaturas</h3><span>Desliza y escoge una para ver con tus hijos 👉</span></div>
+      <div class="carrusel-wrap">
+        <button class="flecha izq" type="button" data-dir="-1" data-target="car-videos" aria-label="Anterior">‹</button>
+        <div class="carrusel" id="car-videos"></div>
+        <button class="flecha der" type="button" data-dir="1" data-target="car-videos" aria-label="Siguiente">›</button>
+      </div>
+    </div>
+    <div class="carrusel-bloque">
+      <div class="carrusel-tit"><h3>Fotos e ilustraciones</h3><span>Desliza para ver más 👉</span></div>
+      <div class="carrusel-wrap">
+        <button class="flecha izq" type="button" data-dir="-1" data-target="car-fotos" aria-label="Anterior">‹</button>
+        <div class="carrusel" id="car-fotos"></div>
+        <button class="flecha der" type="button" data-dir="1" data-target="car-fotos" aria-label="Siguiente">›</button>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <a class="marca" href="index.html"><span class="p">El </span><span class="l">ELFO</span><span class="p"> Express</span></a>
+  <p>Caja Mágica de Travesuras · Hecho con magia del Polo Norte</p>
+  <div class="redes">
+    <a href="https://www.instagram.com/elfoexpress" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> @elfoexpress</a>
+    <a href="https://wa.me/524491378630?text=Hola%2C%20me%20interesa%20adquirir%20una%20Caja%20M%C3%A1gica%20%F0%9F%8E%84" target="_blank" rel="noopener">WhatsApp 449 137 8630</a>
+    <a href="https://wa.me/524498051413?text=Hola%2C%20me%20interesa%20adquirir%20una%20Caja%20M%C3%A1gica%20%F0%9F%8E%84" target="_blank" rel="noopener">WhatsApp 449 805 1413</a>
+  </div>
+</footer>
+<div class="rayas"></div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Detalle">
+  <div class="caja"><button class="cerrar" id="cerrar" aria-label="Cerrar">×</button><div class="cuerpo" id="modal-cuerpo"></div></div>
+</div>
+
+<script>
+/* ============ CONFIGURACIÓN (edita aquí) ============ */
+// Tu número de WhatsApp con lada de país, sin espacios. Ejemplo: "5218112345678"
+const WHATSAPP = "524491378630";
+const WHATSAPP_2 = "524498051413";
+const INSTAGRAM = "https://www.instagram.com/elfoexpress";
+const MENSAJE = "Hola, me interesa adquirir una Caja Mágica 🎄";
+
+// GALERÍA: tipo "img" o "video". Agrega aquí tus fotos y videos nuevos.
+const GALERIA = [
+  {tipo:"video", src:"videos/galeria/caricatura-tirolesa.mp4", poster:"img/galeria/poster-caricatura-tirolesa.jpg", titulo:"Caricatura: la gran tirolesa"},
+  {tipo:"img", src:"img/galeria/elfo-bailando.png", titulo:"¡A bailar!", png:true},
+  {tipo:"video", src:"videos/galeria/llegada.mp4", poster:"img/galeria/poster-llegada.jpg", titulo:"La llegada del elfo"},
+  {tipo:"img", src:"img/galeria/ya-viene-en-camino.png", titulo:"Ya viene en camino…"},
+  {tipo:"img", src:"img/galeria/elfo-broma.png", titulo:"¡Shh! Una travesura", png:true},
+  {tipo:"video", src:"videos/galeria/travesuras.mp4", poster:"img/galeria/poster-travesuras.jpg", titulo:"Mientras todos duermen…"},
+  {tipo:"img", src:"img/galeria/el-elfo-express-sentado-sin-fondo.png", titulo:"Hora de la galleta", png:true},
+  {tipo:"video", src:"videos/galeria/tirolesa.mp4", poster:"img/galeria/poster-tirolesa.jpg", titulo:"Tirolesa"},
+  {tipo:"img", src:"img/galeria/elfo-jugando.png", titulo:"Malabares navideños", png:true},
+  {tipo:"video", src:"videos/galeria/pica-pica.mp4", poster:"img/galeria/poster-pica-pica.jpg", titulo:"¡Pica, pica!"},
+  {tipo:"img", src:"img/galeria/elfo-comiendo.png", titulo:"Leche y galletas", png:true},
+  {tipo:"video", src:"videos/galeria/reel.mp4", poster:"img/galeria/poster-reel.jpg", titulo:"¡Llegan las travesuras!"},
+  {tipo:"img", src:"img/galeria/el-elfo-express-sin-fondo.png", titulo:"Con su caja mágica", png:true},
+  {tipo:"hueco", titulo:"Aquí van tus fotos 📸"},
+];
+const PLAY='<svg width="18" height="18" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#fff"/></svg>';
+const PLAY_G='<svg width="30" height="30" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#fff"/></svg>';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// WhatsApp
+document.querySelectorAll(".js-whatsapp").forEach(a=>{
+  if(WHATSAPP){a.href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(MENSAJE);a.target="_blank";a.rel="noopener";}
+  else a.href="#precios";
+});
+
+// Galería en carruseles
+function tarjetaGal(g){
+  const el=document.createElement(g.tipo==="hueco"?"div":"button");
+  if(g.tipo==="hueco"){el.className="slide hueco";el.textContent=g.titulo;return el;}
+  el.type="button"; el.className="slide"+(g.tipo==="video"?" es-video":"")+(g.png?" png":"");
+  if(g.tipo==="video") el.innerHTML=`<div class="marco"><img src="${g.poster}" alt="" loading="lazy"><span class="play"><span>${PLAY_G}</span></span></div><div class="cap">${esc(g.titulo)}</div>`;
+  else el.innerHTML=`<div class="marco"><img src="${g.src}" alt="${esc(g.titulo)}" loading="lazy"></div><div class="cap">${esc(g.titulo)}</div>`;
+  el.addEventListener("click",()=>abrirGaleria(g));
+  return el;
+}
+const carV=document.getElementById("car-videos"), carF=document.getElementById("car-fotos");
+GALERIA.filter(g=>g.tipo==="video").forEach(g=>carV.appendChild(tarjetaGal(g)));
+GALERIA.filter(g=>g.tipo!=="video").forEach(g=>carF.appendChild(tarjetaGal(g)));
+document.querySelectorAll(".flecha").forEach(b=>b.addEventListener("click",()=>{
+  const c=document.getElementById(b.dataset.target);
+  c.scrollBy({left:Number(b.dataset.dir)*c.clientWidth*0.8,behavior:"smooth"});
+}));
+
+// Modal
+const modal=document.getElementById("modal"), cuerpo=document.getElementById("modal-cuerpo");
+function abrir(clase){modal.className="modal abierto "+(clase||"");document.body.style.overflow="hidden";document.getElementById("cerrar").focus();}
+function cerrar(){modal.className="modal";cuerpo.innerHTML="";document.body.style.overflow="";}
+document.getElementById("cerrar").onclick=cerrar;
+modal.addEventListener("click",e=>{if(e.target===modal)cerrar();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")cerrar();});
+
+function abrirGaleria(g){
+  cuerpo.innerHTML = g.tipo==="video"
+    ? `<div class="video"><video src="${g.src}" poster="${g.poster}" controls playsinline autoplay></video></div>`
+    : `<img src="${g.src}" alt="${esc(g.titulo)}" style="margin:0 auto;max-height:78vh">`;
+  abrir(g.tipo==="video"?"solo":"foto-modal");
+}
+
+</script>
+</body>
+</html>
