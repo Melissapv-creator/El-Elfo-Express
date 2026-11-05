@@ -46,6 +46,12 @@
       <p class="intro">Escoge una travesura y mira cómo se hace. Cada una tiene su video, los pasos y su tarjeta.</p>
     </div>
     <div class="rejilla" id="rejilla"></div>
+    <div class="bonus-cabeza">
+      <span class="bonus-sello">BONUS</span>
+      <h2>8 ideas extra</h2>
+      <p class="intro">Travesuras para hacer con cosas que ya tienes en casa.</p>
+    </div>
+    <div class="rejilla rejilla-bonus" id="rejilla-bonus"></div>
   </div>
 </section>
 
@@ -344,6 +350,131 @@ document.querySelectorAll(".js-whatsapp").forEach(a=>{
   else a.href="#precios";
 });
 
+// BONUS: ideas extra (también pueden llevar video)
+const BONUS = [
+ {
+  "n": 1,
+  "titulo": "Trineo de zapatos",
+  "necesitas": "zapatos de la familia, muñecas y peluches",
+  "pasos": [
+   "Coloca en fila varios zapatos de los integrantes de la familia.",
+   "En cada zapato pon una muñeca o peluche.",
+   "En el primer zapato pon al elfo, ¡él maneja!"
+  ],
+  "extra": "",
+  "img": "img/bonus/bonus-01.jpg",
+  "tarjeta": "img/bonus/tarjeta-bonus-01.png",
+  "video": "",
+  "bonus": true
+ },
+ {
+  "n": 2,
+  "titulo": "Guerra de bolas de nieve",
+  "necesitas": "calcetines blancos y cojines",
+  "pasos": [
+   "Haz bolitas con calcetines blancos.",
+   "Arma un fuerte con cojines y esconde a los peluches.",
+   "Pon al elfo con una bola en la mano, ¡listo para lanzar!"
+  ],
+  "extra": "",
+  "img": "img/bonus/bonus-02.jpg",
+  "tarjeta": "img/bonus/tarjeta-bonus-02.png",
+  "video": "",
+  "bonus": true
+ },
+ {
+  "n": 3,
+  "titulo": "Iglú de vasos",
+  "necesitas": "vasos o biberones de plástico",
+  "pasos": [
+   "Acomoda vasos o biberones en círculo.",
+   "Apila más filas hacia adentro hasta cerrar el iglú.",
+   "Deja la entrada abierta y pon al elfo junto a su iglú."
+  ],
+  "extra": "",
+  "img": "img/bonus/bonus-03.jpg",
+  "tarjeta": "img/bonus/tarjeta-bonus-03.png",
+  "video": "",
+  "bonus": true
+ },
+ {
+  "n": 4,
+  "titulo": "¡El café está listo!",
+  "necesitas": "tazas de la casa y la cafetera",
+  "pasos": [
+   "Saca todas las tazas de tu casa.",
+   "Ponlas alrededor de la cafetera.",
+   "Llénalas con agua y un poco de café.",
+   "Coloca al elfo sobre la cafetera."
+  ],
+  "extra": "",
+  "img": "img/bonus/bonus-04.jpg",
+  "tarjeta": "img/bonus/tarjeta-bonus-04.png",
+  "video": "",
+  "bonus": true
+ },
+ {
+  "n": 5,
+  "titulo": "¡Ladrón de galletas!",
+  "necesitas": "frasco o plato de galletas",
+  "pasos": [
+   "Mete al elfo en el frasco de galletas (o junto al plato).",
+   "Ponle una galleta mordida en la mano.",
+   "Riega unas migajas, ¡lo atraparon!"
+  ],
+  "extra": "",
+  "img": "img/bonus/bonus-05.jpg",
+  "tarjeta": "img/bonus/tarjeta-bonus-05.png",
+  "video": "",
+  "bonus": true
+ },
+ {
+  "n": 6,
+  "titulo": "El elfo hambriento",
+  "necesitas": "empaques vacíos de comida",
+  "pasos": [
+   "Coloca al elfo dentro del refri o en la mesa de la cocina.",
+   "Junto a él pon empaques vacíos de la comida que tu peque come.",
+   "¡Se lo comió todo!"
+  ],
+  "extra": "",
+  "img": "img/bonus/bonus-06.jpg",
+  "tarjeta": "img/bonus/tarjeta-bonus-06.png",
+  "video": "",
+  "bonus": true
+ },
+ {
+  "n": 7,
+  "titulo": "Montaña de ropa",
+  "necesitas": "ropa limpia y una almohada",
+  "pasos": [
+   "En la sala haz una montaña con la ropa limpia de todos.",
+   "Pon una almohada hasta arriba, como si se deslizara.",
+   "Sienta al elfo sobre la almohada, ¡a deslizarse!"
+  ],
+  "extra": "",
+  "img": "img/bonus/bonus-07.jpg",
+  "tarjeta": "img/bonus/tarjeta-bonus-07.png",
+  "video": "",
+  "bonus": true
+ },
+ {
+  "n": 8,
+  "titulo": "Cocinando a su peluche",
+  "necesitas": "molde de vidrio, peluche y verduras",
+  "pasos": [
+   "Pon un peluche dentro de un molde de vidrio.",
+   "Acomoda verduras alrededor y déjalo en la cocina.",
+   "Pon al elfo con una espátula, ¡como si lo cocinara!"
+  ],
+  "extra": "",
+  "img": "img/bonus/bonus-08.jpg",
+  "tarjeta": "img/bonus/tarjeta-bonus-08.png",
+  "video": "",
+  "bonus": true
+ }
+];
+
 // Candado con código
 const candado=document.getElementById("candado");
 const limpiar=t=>String(t).trim().toUpperCase().replace(/\s+/g,"");
@@ -370,6 +501,16 @@ BROMAS.forEach((b,i)=>{
   rej.appendChild(el);
 });
 
+// Rejilla de bonus
+const rejB=document.getElementById("rejilla-bonus");
+BONUS.forEach((b,i)=>{
+  const el=document.createElement("button");
+  el.className="broma bonus"; el.type="button";
+  el.innerHTML=`<img src="${b.img}" alt="" loading="lazy"><span class="play">${PLAY}</span><span class="info"><span class="num">BONUS ${b.n}</span><span class="tit">${esc(b.titulo)}</span></span>`;
+  el.addEventListener("click",()=>abrirBroma(i,BONUS));
+  rejB.appendChild(el);
+});
+
 // Modal
 const modal=document.getElementById("modal"), cuerpo=document.getElementById("modal-cuerpo");
 function abrir(clase){modal.className="modal abierto "+(clase||"");document.body.style.overflow="hidden";document.getElementById("cerrar").focus();}
@@ -378,13 +519,13 @@ document.getElementById("cerrar").onclick=cerrar;
 modal.addEventListener("click",e=>{if(e.target===modal)cerrar();});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")cerrar();});
 
-function abrirBroma(i){
-  const b=BROMAS[i];
+function abrirBroma(i,lista){
+  const b=(lista||BROMAS)[i];
   const video=b.video
     ? `<video src="${b.video}" controls playsinline autoplay></video>`
     : `<div class="prox"><img src="${b.img}" alt=""><b>Video próximamente</b><span>Mientras tanto, sigue los pasos de abajo o la tarjeta.</span></div>`;
   cuerpo.innerHTML=`<div class="video">${video}</div>
-    <div class="detalle"><span class="etiqueta">Travesura #${b.n}</span><h3>${esc(b.titulo)}</h3>
+    <div class="detalle"><span class="etiqueta">${b.bonus?"Idea bonus "+b.n:"Travesura #"+b.n}</span><h3>${esc(b.titulo)}</h3>
     <div class="nec"><strong>Necesitas:</strong> ${esc(b.necesitas)}</div>
     <ol>${b.pasos.map(p=>`<li><span>${esc(p)}</span></li>`).join("")}</ol>
     ${b.extra?`<div class="extra">★ Extra: ${esc(b.extra)}</div>`:""}
