@@ -1,21 +1,48 @@
 EL ELFO EXPRESS - PÁGINA WEB
 ============================
+Publicada en GitHub Pages:
+https://melissapv-creator.github.io/El-Elfo-Express/
 
-Cómo subirla:
-  Sube TODA esta carpeta (index.html + img + videos) a tu hosting.
-  La página principal es index.html.
+Hojas:
+  - index.html   = Inicio (venta, qué incluye, precios y entregas)
+  - bromas.html  = Bromas (18 travesuras + 8 ideas extra + travesuras de regalo)
+  - galeria.html = Galería (caricaturas y fotos/ilustraciones)
+  - tienda.html  = Tienda (productos con botón «Lo quiero» a WhatsApp)
+  - estilos.css  = el diseño de todas las hojas
 
-Cómo agregar los videos de las bromas:
-  1. Copia cada video a la carpeta  videos/bromas/
-     (por ejemplo: videos/bromas/broma-01.mp4)
-  2. Abre index.html y busca la lista BROMAS.
-  3. En la broma que corresponda, escribe la ruta en "video":
+Cómo subir cambios a GitHub:
+  En el repositorio, Add file > Upload files, arrastra los archivos o
+  carpetas que cambiaron y da Commit changes. Los archivos con el mismo
+  nombre se reemplazan solos.
+
+CÓDIGOS
+  - Código mágico (Bromas y la caricatura ¡Pica, pica!):
+      bromas.html y galeria.html ->  const CODIGO = "MAGIA2026";
+  - Código de las travesuras de regalo (viene atrás de la tarjeta amarilla):
+      bromas.html ->  const CODIGO_REGALO = "EXPRESS2026";
+  No importa si los escriben con mayúsculas, minúsculas o espacios.
+  Una vez que lo escriben, el celular lo recuerda y no lo vuelve a pedir.
+
+WhatsApp
+  - Botón flotante y tienda: 449 805 1413
+  - Botones «Aparta»: 449 137 8630
+  (están en cada hoja en  const WHATSAPP = "524491378630";  y  WHATSAPP_2)
+
+VIDEOS DE LAS BROMAS
+  1. Copia el video a la carpeta  videos/bromas/  (ej. videos/bromas/broma-01.mp4)
+  2. En bromas.html busca la lista BROMAS (o BONUS, o REGALO).
+  3. En la travesura que corresponde escribe la ruta en "video":
         "video": "videos/bromas/broma-01.mp4"
+  Si "video" está vacío, se ve «Video próximamente».
 
-Cómo agregar fotos o videos a la galería:
-  Copia el archivo a img/galeria/ (fotos) o videos/galeria/ (videos)
-  y agrégalo en la lista GALERIA dentro de index.html.
+GALERÍA
+  Copia el archivo a img/galeria/ (fotos) o videos/galeria/ (videos) y
+  agrégalo en la lista GALERIA dentro de galeria.html.
+  Para que una caricatura pida el código mágico, agrégale  codigo:true
 
-WhatsApp:
-  En index.html, escribe tu número en  const WHATSAPP = "";
-  (con lada de país, por ejemplo "5218112345678").
+TIENDA
+  - Foto real de un producto: súbela a img/tienda/fotos/ y en tienda.html,
+    en la lista PRODUCTOS, escribe su ruta en "foto"
+    (ej. "foto": "img/tienda/fotos/caja.jpg"). Mejor fotos cuadradas.
+  - Precio: escríbelo en "precio" (ej. "$250"). Vacío = «Pregunta por el precio».
+  - El elfo asomado en la esquina se pone solo en cada producto.

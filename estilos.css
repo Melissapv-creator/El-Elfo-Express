@@ -184,3 +184,87 @@ footer{padding-bottom:96px}
 .broma.bonus .play{background:var(--dorado)}
 .broma.bonus .play path{fill:#7A2310}
 .broma.bonus .info{flex-direction:column;align-items:flex-start;gap:6px}
+
+/* Tienda */
+.productos{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.producto{position:relative;background:#fff;border-radius:24px;box-shadow:var(--sombra);overflow:hidden;display:flex;flex-direction:column}
+.producto.destacado{outline:4px solid var(--dorado)}
+.cinta{position:absolute;top:14px;left:14px;z-index:1;background:var(--dorado);color:#7A2310;font-weight:700;font-size:13px;padding:5px 12px;border-radius:999px}
+.foto-p{background:var(--crema);aspect-ratio:1;display:grid;place-items:center}
+.foto-p img{width:86%;height:86%;object-fit:contain}
+.cuerpo-p{padding:16px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.cuerpo-p h3{font-family:"Lilita One",sans-serif;font-weight:400;color:var(--verde);font-size:24px;line-height:1.1}
+.cuerpo-p p{margin:0;color:var(--suave);font-size:15px}
+.precio-p{margin-top:auto;padding-top:6px}
+.precio-p b{font-family:"Lilita One",sans-serif;font-weight:400;color:var(--rojo);font-size:34px;line-height:1}
+.precio-p .preg{font-weight:700;color:var(--verde-osc)}
+.precio-p small{display:block;color:var(--suave);font-size:13px;font-weight:600;margin-top:2px}
+.comprar{justify-content:center;width:100%;margin-top:8px}
+.tienda-info{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.tienda-info div{background:var(--verde);color:#fff;border-radius:20px;padding:16px 20px}
+.tienda-info b{display:block;font-family:"Lilita One",sans-serif;font-weight:400;font-size:22px;color:var(--dorado)}
+.tienda-info span{color:#E3F1E8}
+@media (max-width:640px){ .tienda-info{grid-template-columns:1fr} nav a{padding:7px 8px;font-size:12.5px} .marca{font-size:16px} }
+@media (max-width:560px){
+  .barra{flex-wrap:wrap;justify-content:center;gap:4px;padding:8px 12px}
+  nav{width:100%;justify-content:center}
+  nav a{padding:7px 12px;font-size:13.5px}
+  .marca{font-size:19px}
+  .productos{grid-template-columns:1fr 1fr;gap:12px}
+  .cuerpo-p{padding:12px 12px 14px;gap:6px}
+  .cuerpo-p h3{font-size:18px}
+  .cuerpo-p p{font-size:13px}
+  .precio-p b{font-size:26px}
+  .precio-p .preg{font-size:13px}
+  .comprar{padding:11px 10px;font-size:15px}
+  .cinta{top:8px;left:8px;font-size:11px;padding:4px 9px}
+}
+
+/* Elfo asomado en cada producto */
+.foto-p{position:relative}
+.foto-p.real img:first-child{width:100%;height:100%;object-fit:cover}
+.foto-p .asoma{position:absolute;right:5%;bottom:-1px;width:34%;height:auto;object-fit:contain;pointer-events:none;filter:drop-shadow(0 -2px 3px rgba(0,0,0,.08))}
+
+/* Caricaturas: carrusel con la del centro grande */
+.cf{--w:min(300px,64vw);position:relative;outline:none}
+.cf-pista{position:relative;height:calc(var(--w)*16/9 + 20px);overflow:hidden;touch-action:pan-y}
+.cf-slide{--d:0;--ad:0;position:absolute;top:10px;left:50%;width:var(--w);aspect-ratio:9/16;margin-left:calc(var(--w)/-2);border:0;padding:0;border-radius:26px;overflow:hidden;background:#1B2A4A;cursor:pointer;box-shadow:0 18px 40px rgba(23,85,58,.22);transform:translateX(calc(var(--d)*var(--w)*1.02)) scale(calc(1 - var(--ad)*.18));z-index:calc(10 - var(--ad));transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s,filter .4s;font:inherit;text-align:left}
+.cf-slide img{width:100%;height:100%;object-fit:cover}
+.cf-slide:not(.activa){filter:saturate(.85) brightness(.92)}
+.cf-slide.oculta{opacity:0;pointer-events:none}
+.cf-slide .play{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .3s}
+.cf-slide .play span{width:66px;height:66px;border-radius:50%;background:rgba(215,50,46,.92);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.cf-slide:not(.activa) .play{opacity:0}
+.cf-cap{position:absolute;left:0;right:0;bottom:0;padding:70px 20px 20px;background:linear-gradient(to top,rgba(16,40,28,.92) 0%,rgba(16,40,28,.6) 55%,rgba(16,40,28,0) 100%);color:#fff;transition:opacity .3s}
+.cf-cap b{display:block;font-family:"Lilita One",sans-serif;font-weight:400;font-size:24px;line-height:1.1;margin-bottom:6px}
+.cf-cap span{display:block;font-size:14px;line-height:1.4;opacity:.92}
+.cf-slide:not(.activa) .cf-cap{opacity:0}
+.cf-nav{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:18px}
+.cf-btn{width:54px;height:54px;border-radius:50%;border:1px solid #E6DCC8;background:#fff;color:var(--verde-osc);display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.06);transition:transform .2s}
+.cf-btn:hover{transform:scale(1.06)}
+.cf-puntos{display:flex;align-items:center;gap:8px}
+.cf-puntos button{width:11px;height:11px;border-radius:99px;border:0;padding:0;background:#D6CFC2;cursor:pointer;transition:width .3s,background .3s}
+.cf-puntos button.activo{width:44px;background:var(--verde)}
+.cf-slide:focus-visible,.cf-btn:focus-visible,.cf-puntos button:focus-visible{outline:3px solid var(--dorado);outline-offset:3px}
+@media (min-width:900px){.cf{--w:330px}.cf-slide{transform:translateX(calc(var(--d)*var(--w)*1.12)) scale(calc(1 - var(--ad)*.16))}}
+.cf-lock{position:absolute;top:14px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:var(--dorado);color:#4A2E00;font-weight:700;font-size:13px;padding:7px 14px;border-radius:99px;box-shadow:0 4px 12px rgba(0,0,0,.18);transition:opacity .3s}
+.cf-slide:not(.activa) .cf-lock{opacity:0}
+.cod-form{max-width:380px;margin:0 auto;text-align:center}
+.cod-form img{max-height:150px;margin:0 auto 6px}
+.cod-form h2{font-size:32px;margin:6px 0}
+.cod-form p{color:var(--suave);margin:6px 0 16px}
+.cod-form input{width:100%;font:700 22px Montserrat,sans-serif;text-align:center;letter-spacing:.15em;text-transform:uppercase;padding:14px;border-radius:16px;border:3px solid #E6D3C6;background:var(--crema);color:var(--tinta)}
+.cod-form input:focus{outline:none;border-color:var(--verde)}
+.cod-form .btn{width:100%;justify-content:center;margin-top:14px}
+.cod-form .error{color:var(--rojo);font-weight:700;min-height:1.5em;margin:10px 0 0}
+/* Travesuras de regalo (tarjetas amarillas) */
+.regalo-cabeza h2{color:var(--rojo)}
+.regalo-sello{display:inline-block;background:#F7C531;color:var(--rojo);font-family:"Lilita One",sans-serif;font-size:20px;letter-spacing:.08em;padding:6px 18px;border-radius:999px;border:2px solid var(--rojo)}
+.broma.regalo{background:#F7C531}
+.broma.regalo .num{background:var(--rojo);color:#fff}
+.broma.regalo .tit{color:#7A2310}
+.broma.regalo .play{background:var(--rojo)}
+.broma.regalo .info{flex-direction:column;align-items:flex-start;gap:6px}
+.broma.regalo{position:relative}
+.r-lock{position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:5px;background:var(--rojo);color:#fff;font-weight:700;font-size:12px;padding:5px 10px;border-radius:99px;box-shadow:0 3px 8px rgba(0,0,0,.18)}
+.r-num{display:inline-flex;align-items:center;gap:5px}

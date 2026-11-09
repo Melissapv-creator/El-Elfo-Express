@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tienda · El Elfo Express</title>
+<meta name="description" content="El Elfo Express: la caja con todo lo necesario para las travesuras de tu elfo de Navidad, con videos paso a paso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="rayas"></div>
+<header>
+  <div class="barra">
+    <a class="marca" href="index.html"><span class="p">El </span><span class="l">ELFO</span><span class="p"> Express</span></a>
+    <nav>
+      <a href="index.html#inicio" data-sec="inicio">Inicio</a>
+      <a href="bromas.html" data-sec="bromas">Bromas</a>
+      <a href="galeria.html" data-sec="galeria">Galería</a>
+      <a href="tienda.html" data-sec="tienda" class="activo">Tienda</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="tienda">
+  <div class="wrap">
+    <div class="centro">
+      <span class="sub">Lleva la magia a casa</span>
+      <h2>Tienda</h2>
+      <p class="intro">Escoge tu producto y toca «Lo quiero». Te mandamos directo a WhatsApp para apartarlo.</p>
+    </div>
+    <div class="productos" id="productos"></div>
+    <div class="tienda-info">
+      <div><b>Apartas con el 50%</b><span>y el resto lo liquidas en la entrega.</span></div>
+      <div><b>Entregas 25 y 26 de noviembre</b><span>Zona Norte y Zona Sur de Aguascalientes. Última entrega: 30 de noviembre.</span></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <a class="marca" href="index.html"><span class="p">El </span><span class="l">ELFO</span><span class="p"> Express</span></a>
+  <p>Caja Mágica de Travesuras · Hecho con magia del Polo Norte</p>
+  <div class="redes">
+    <a href="https://www.instagram.com/elfoexpress" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> @elfoexpress</a>
+    <a href="https://wa.me/524491378630?text=Hola%2C%20me%20interesa%20adquirir%20una%20Caja%20M%C3%A1gica%20%F0%9F%8E%84" target="_blank" rel="noopener">WhatsApp 449 137 8630</a>
+    <a href="https://wa.me/524498051413?text=Hola%2C%20me%20interesa%20adquirir%20una%20Caja%20M%C3%A1gica%20%F0%9F%8E%84" target="_blank" rel="noopener">WhatsApp 449 805 1413</a>
+  </div>
+</footer>
+<div class="rayas"></div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Detalle">
+  <div class="caja"><button class="cerrar" id="cerrar" aria-label="Cerrar">×</button><div class="cuerpo" id="modal-cuerpo"></div></div>
+</div>
+
+<script>/* ============ TIENDA (edita aquí precios y productos) ============ */
+// Número de WhatsApp que recibe los pedidos de la tienda
+const WHATSAPP_TIENDA = "524498051413";
+// Para cambiar un precio, escribe el texto en "precio" (por ejemplo "$250"). Si lo dejas vacío dice «Pregunta por el precio».
+// FOTOS REALES: sube la foto a img/tienda/fotos/ y escribe la ruta en "foto", por ejemplo "img/tienda/fotos/caja.jpg".
+// Mientras "foto" esté vacío se muestra el dibujo.
+const PRODUCTOS = [
+ {
+  "id": "caja",
+  "nombre": "Caja Mágica 2026",
+  "desc": "18 travesuras con materiales, sobre de MDF, cartas, acta, notitas, videos paso a paso y 8 ideas bonus.",
+  "precio": "$1,000",
+  "nota": "Preventa antes del 20 de nov · después $1,150",
+  "foto": "",
+  "img": "img/tienda/caja-magica.png",
+  "destacado": true
+ },
+ {
+  "id": "elfo",
+  "nombre": "Elfo + certificado",
+  "desc": "Elfo de 40 cm de alto. Incluye su certificado del Polo Norte (acta de adopción).",
+  "precio": "$300",
+  "nota": "Incluye certificado · Hasta agotar existencias",
+  "foto": "img/tienda/fotos/elfo.jpg",
+  "img": "img/tienda/elfo.png"
+ },
+ {
+  "id": "kit",
+  "nombre": "Kit de viaje del elfo",
+  "desc": "Todo lo que tu elfo necesita para llegar y descansar: maletita y cobijita.",
+  "precio": "",
+  "nota": "",
+  "foto": "",
+  "img": "img/tienda/kit-de-viaje.png"
+ },
+ {
+  "id": "sobre-neutro",
+  "nombre": "Sobre MDF Neutro",
+  "desc": "Sobre de MDF «Correo del Polo Norte» para la carta de llegada.",
+  "precio": "",
+  "nota": "",
+  "foto": "",
+  "img": "img/tienda/sobre-neutro.png"
+ },
+ {
+  "id": "sobre-santa",
+  "nombre": "Sobre de caobilla Santa",
+  "desc": "Sobre de caobilla con diseño de Santa para la carta de tu peque.",
+  "precio": "",
+  "nota": "",
+  "foto": "img/tienda/fotos/sobre-santa.jpg",
+  "img": "img/tienda/sobre-santa.png"
+ },
+ {
+  "id": "sobre-nino-dios",
+  "nombre": "Sobre de caobilla Niño Dios",
+  "desc": "Sobre de caobilla con diseño de Niño Dios para la carta de tu peque.",
+  "precio": "",
+  "nota": "",
+  "foto": "img/tienda/fotos/sobre-nino-dios.jpg",
+  "img": "img/tienda/sobre-nino-dios.png"
+ },
+ {
+  "id": "tabla",
+  "nombre": "Tabla para Santa",
+  "desc": "Tabla de caobilla para dejar galletas y leche en Nochebuena.",
+  "precio": "",
+  "nota": "",
+  "foto": "img/tienda/fotos/tabla.jpg",
+  "img": "img/tienda/tabla.png"
+ }
+];
+/* ================================================================ */
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const lista=document.getElementById("productos");
+PRODUCTOS.forEach(p=>{
+  const msg="Hola, me interesa comprar: "+p.nombre+" 🎄";
+  const url="https://wa.me/"+WHATSAPP_TIENDA+"?text="+encodeURIComponent(msg);
+  const el=document.createElement("article");
+  el.className="producto"+(p.destacado?" destacado":"");
+  el.innerHTML=`${p.destacado?'<span class="cinta">Más vendido</span>':''}
+    <div class="foto-p${p.foto?" real":""}"><img src="${p.foto||p.img}" alt="${esc(p.nombre)}" loading="lazy"><img class="asoma" src="img/tienda/elfo-asomado.png" alt=""></div>
+    <div class="cuerpo-p">
+      <h3>${esc(p.nombre)}</h3>
+      <p>${esc(p.desc)}</p>
+      <div class="precio-p">${p.precio?`<b>${esc(p.precio)}</b>`:'<span class="preg">Pregunta por el precio</span>'}${p.nota?`<small>${esc(p.nota)}</small>`:''}</div>
+      <a class="btn btn-rojo comprar" href="${url}" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff" d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.2c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3z"/></svg>
+        Lo quiero</a>
+    </div>`;
+  lista.appendChild(el);
+});
+</script>
+</body>
+</html>

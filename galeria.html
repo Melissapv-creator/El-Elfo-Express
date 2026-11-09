@@ -19,6 +19,7 @@
       <a href="index.html#inicio" data-sec="inicio">Inicio</a>
       <a href="bromas.html" data-sec="bromas">Bromas</a>
       <a href="galeria.html" data-sec="galeria" class="activo">Galería</a>
+      <a href="tienda.html" data-sec="tienda">Tienda</a>
     </nav>
   </div>
 </header>
@@ -33,11 +34,14 @@
       <p class="intro">Fotos, ilustraciones y caricaturas de nuestro elfo travieso.</p>
     </div>
     <div class="carrusel-bloque">
-      <div class="carrusel-tit"><h3>Caricaturas</h3><span>Desliza y escoge una para ver con tus hijos 👉</span></div>
-      <div class="carrusel-wrap">
-        <button class="flecha izq" type="button" data-dir="-1" data-target="car-videos" aria-label="Anterior">‹</button>
-        <div class="carrusel" id="car-videos"></div>
-        <button class="flecha der" type="button" data-dir="1" data-target="car-videos" aria-label="Siguiente">›</button>
+      <div class="carrusel-tit"><h3>Caricaturas</h3><span>Escoge una para ver con tus hijos 🎬</span></div>
+      <div class="cf" id="cf" tabindex="0" aria-roledescription="carrusel" aria-label="Caricaturas">
+        <div class="cf-pista" id="cf-pista"></div>
+        <div class="cf-nav">
+          <button class="cf-btn" type="button" id="cf-ant" aria-label="Anterior"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="cf-puntos" id="cf-puntos"></div>
+          <button class="cf-btn" type="button" id="cf-sig" aria-label="Siguiente"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
       </div>
     </div>
     <div class="carrusel-bloque">
@@ -72,23 +76,28 @@ const WHATSAPP = "524491378630";
 const WHATSAPP_2 = "524498051413";
 const INSTAGRAM = "https://www.instagram.com/elfoexpress";
 const MENSAJE = "Hola, me interesa adquirir una Caja Mágica 🎄";
+// Código mágico (el mismo de la hoja de Bromas). Las caricaturas con  codigo:true  lo piden.
+const CODIGO = "MAGIA2026";
 
 // GALERÍA: tipo "img" o "video". Agrega aquí tus fotos y videos nuevos.
+// Para que una caricatura pida el código mágico, agrégale  codigo:true
 const GALERIA = [
-  {tipo:"video", src:"videos/galeria/caricatura-tirolesa.mp4", poster:"img/galeria/poster-caricatura-tirolesa.jpg", titulo:"Caricatura: la gran tirolesa"},
+  {tipo:"video", src:"videos/galeria/caricatura-tirolesa.mp4", poster:"img/galeria/poster-caricatura-tirolesa.jpg", titulo:"Caricatura: la gran tirolesa", desc:"Nuestro elfo se lanza por la tirolesa más divertida de la casa."},
   {tipo:"img", src:"img/galeria/elfo-bailando.png", titulo:"¡A bailar!", png:true},
-  {tipo:"video", src:"videos/galeria/llegada.mp4", poster:"img/galeria/poster-llegada.jpg", titulo:"La llegada del elfo"},
-  {tipo:"img", src:"img/galeria/ya-viene-en-camino.png", titulo:"Ya viene en camino…"},
+  {tipo:"video", src:"videos/galeria/llegada.mp4", poster:"img/galeria/poster-llegada.jpg", titulo:"La llegada del elfo", desc:"Así llega tu elfo desde el Polo Norte para empezar la magia."},
   {tipo:"img", src:"img/galeria/elfo-broma.png", titulo:"¡Shh! Una travesura", png:true},
-  {tipo:"video", src:"videos/galeria/travesuras.mp4", poster:"img/galeria/poster-travesuras.jpg", titulo:"Mientras todos duermen…"},
+  {tipo:"video", src:"videos/galeria/travesuras.mp4", poster:"img/galeria/poster-travesuras.jpg", titulo:"Mientras todos duermen…", desc:"Lo que pasa de noche, cuando nadie lo está viendo."},
   {tipo:"img", src:"img/galeria/el-elfo-express-sentado-sin-fondo.png", titulo:"Hora de la galleta", png:true},
-  {tipo:"video", src:"videos/galeria/tirolesa.mp4", poster:"img/galeria/poster-tirolesa.jpg", titulo:"Tirolesa"},
+  {tipo:"video", src:"videos/galeria/tirolesa.mp4", poster:"img/galeria/poster-tirolesa.jpg", titulo:"Tirolesa", desc:"Una de las travesuras favoritas de la Caja Mágica."},
   {tipo:"img", src:"img/galeria/elfo-jugando.png", titulo:"Malabares navideños", png:true},
-  {tipo:"video", src:"videos/galeria/pica-pica.mp4", poster:"img/galeria/poster-pica-pica.jpg", titulo:"¡Pica, pica!"},
+  {tipo:"video", src:"videos/galeria/pica-pica.mp4", poster:"img/galeria/poster-pica-pica.jpg", titulo:"¡Pica, pica!", desc:"Una travesura que hará reír a toda la familia.", codigo:true},
   {tipo:"img", src:"img/galeria/elfo-comiendo.png", titulo:"Leche y galletas", png:true},
-  {tipo:"video", src:"videos/galeria/reel.mp4", poster:"img/galeria/poster-reel.jpg", titulo:"¡Llegan las travesuras!"},
+  {tipo:"video", src:"videos/galeria/reel.mp4", poster:"img/galeria/poster-reel.jpg", titulo:"¡Llegan las travesuras!", desc:"Conoce la Caja Mágica de Travesuras."},
+  {tipo:"video", src:"videos/galeria/en-camino.mp4", poster:"img/galeria/poster-en-camino.jpg", titulo:"Elfo en camino", desc:"Tu elfo ya viene desde el Polo Norte… ¿está lista tu casa?"},
+  {tipo:"video", src:"videos/galeria/inspector.mp4", poster:"img/galeria/poster-inspector.jpg", titulo:"Elfo inspector", desc:"Lupa en mano, revisa que todo esté listo para la Navidad."},
+  {tipo:"video", src:"videos/galeria/despensa.mp4", poster:"img/galeria/poster-despensa.jpg", titulo:"Buscando en la despensa", desc:"¿Qué andará buscando este elfo tan curioso?"},
+  {tipo:"video", src:"videos/galeria/moto.mp4", poster:"img/galeria/poster-moto.jpg", titulo:"Elfo en moto", desc:"¡A toda velocidad para llegar a tiempo!"},
   {tipo:"img", src:"img/galeria/el-elfo-express-sin-fondo.png", titulo:"Con su caja mágica", png:true},
-  {tipo:"hueco", titulo:"Aquí van tus fotos 📸"},
 ];
 const PLAY='<svg width="18" height="18" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#fff"/></svg>';
 const PLAY_G='<svg width="30" height="30" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#fff"/></svg>';
@@ -110,8 +119,67 @@ function tarjetaGal(g){
   el.addEventListener("click",()=>abrirGaleria(g));
   return el;
 }
-const carV=document.getElementById("car-videos"), carF=document.getElementById("car-fotos");
-GALERIA.filter(g=>g.tipo==="video").forEach(g=>carV.appendChild(tarjetaGal(g)));
+const carF=document.getElementById("car-fotos");
+// Código mágico
+const CANDADO='<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2.6" fill="none"/></svg>';
+const limpiar=t=>String(t).trim().toUpperCase().replace(/\s+/g,"");
+function abiertas(){try{return localStorage.getItem("elfo-codigo")===limpiar(CODIGO);}catch(e){return false;}}
+function marcarAbiertas(){ if(abiertas()) document.querySelectorAll(".cf-lock").forEach(l=>l.remove()); }
+function pedirCodigo(g){
+  cuerpo.innerHTML=`<form class="cod-form" autocomplete="off">
+    <img src="img/elfo-caja.png" alt="">
+    <span class="etiqueta">Solo para familias con su caja</span>
+    <h2>¡Caricatura secreta!</h2>
+    <p>Escribe el código mágico que viene en tu caja para ver «${esc(g.titulo)}».</p>
+    <label for="codigo-g" class="sr">Código mágico</label>
+    <input id="codigo-g" type="text" placeholder="Tu código" required>
+    <button class="btn btn-rojo" type="submit">Ver caricatura</button>
+    <p class="error" role="alert"></p>
+    <p class="ayuda">¿No tienes tu caja? <a href="index.html#precios">Aparta la tuya aquí</a></p>
+  </form>`;
+  abrir("foto-modal");
+  const f=cuerpo.querySelector("form"), inp=f.querySelector("input");
+  setTimeout(()=>inp.focus(),50);
+  f.addEventListener("submit",e=>{
+    e.preventDefault();
+    const v=limpiar(inp.value);
+    if(v===limpiar(CODIGO)){ try{localStorage.setItem("elfo-codigo",v);}catch(err){} marcarAbiertas(); abrirGaleria(g); }
+    else f.querySelector(".error").textContent="Ese código no es correcto. Revísalo en tu caja e inténtalo otra vez.";
+  });
+}
+
+// Caricaturas: carrusel con la del centro grande
+const VIDEOS=GALERIA.filter(g=>g.tipo==="video");
+const pista=document.getElementById("cf-pista"), puntos=document.getElementById("cf-puntos");
+let actual=0;
+const slides=VIDEOS.map((g,i)=>{
+  const b=document.createElement("button");b.type="button";b.className="cf-slide";
+  b.innerHTML=`<img src="${g.poster}" alt="" loading="lazy"><span class="play"><span>${PLAY_G}</span></span>${g.codigo?`<span class="cf-lock">${CANDADO} Con código mágico</span>`:""}<div class="cf-cap"><b>${esc(g.titulo)}</b>${g.desc?`<span>${esc(g.desc)}</span>`:""}</div>`;
+  b.addEventListener("click",()=>{ if(i===actual) (g.codigo&&!abiertas()?pedirCodigo(g):abrirGaleria(g)); else ir(i); });
+  pista.appendChild(b);
+  const d=document.createElement("button");d.type="button";d.setAttribute("aria-label","Ver "+g.titulo);
+  d.addEventListener("click",()=>ir(i));puntos.appendChild(d);
+  return b;
+});
+function ir(n){
+  const N=slides.length; actual=(n+N)%N;
+  slides.forEach((el,i)=>{
+    let d=i-actual; if(d>N/2)d-=N; if(d<-N/2)d+=N;
+    el.style.setProperty("--d",d); el.style.setProperty("--ad",Math.abs(d));
+    el.classList.toggle("activa",d===0); el.classList.toggle("oculta",Math.abs(d)>1);
+    el.tabIndex=d===0?0:-1; el.setAttribute("aria-hidden",d===0?"false":"true");
+  });
+  [...puntos.children].forEach((p,i)=>p.classList.toggle("activo",i===actual));
+}
+document.getElementById("cf-ant").onclick=()=>ir(actual-1);
+document.getElementById("cf-sig").onclick=()=>ir(actual+1);
+const cf=document.getElementById("cf");
+cf.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")ir(actual-1);if(e.key==="ArrowRight")ir(actual+1);});
+let x0=null;
+pista.addEventListener("touchstart",e=>{x0=e.touches[0].clientX;},{passive:true});
+pista.addEventListener("touchend",e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)ir(actual+(dx<0?1:-1));x0=null;});
+ir(0);
+marcarAbiertas();
 GALERIA.filter(g=>g.tipo!=="video").forEach(g=>carF.appendChild(tarjetaGal(g)));
 document.querySelectorAll(".flecha").forEach(b=>b.addEventListener("click",()=>{
   const c=document.getElementById(b.dataset.target);

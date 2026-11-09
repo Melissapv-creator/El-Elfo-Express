@@ -19,6 +19,7 @@
       <a href="index.html#inicio" data-sec="inicio">Inicio</a>
       <a href="bromas.html" data-sec="bromas" class="activo">Bromas</a>
       <a href="galeria.html" data-sec="galeria">Galería</a>
+      <a href="tienda.html" data-sec="tienda">Tienda</a>
     </nav>
   </div>
 </header>
@@ -52,6 +53,12 @@
       <p class="intro">Travesuras para hacer con cosas que ya tienes en casa.</p>
     </div>
     <div class="rejilla rejilla-bonus" id="rejilla-bonus"></div>
+    <div class="bonus-cabeza regalo-cabeza">
+      <span class="regalo-sello">🎁 DE REGALO</span>
+      <h2>Travesuras de regalo</h2>
+      <p class="intro">¿En tu caja venía una tarjeta amarilla? Escribe el código que trae atrás para ver cómo se hace.</p>
+    </div>
+    <div class="rejilla rejilla-regalo" id="rejilla-regalo"></div>
   </div>
 </section>
 
@@ -81,6 +88,8 @@ const MENSAJE = "Hola, me interesa adquirir una Caja Mágica 🎄";
 
 // CÓDIGO MÁGICO para entrar a las bromas (el que imprimes en la caja). Puedes cambiarlo.
 const CODIGO = "MAGIA2026";
+// Código extra para las travesuras de regalo (viene atrás de la tarjeta amarilla)
+const CODIGO_REGALO = "EXPRESS2026";
 
 // BROMAS: para agregar un video, escribe la ruta en "video", por ejemplo "videos/bromas/broma-01.mp4"
 const BROMAS = [
@@ -128,12 +137,12 @@ const BROMAS = [
  },
  {
   "n": 4,
-  "titulo": "Bigotes por todos lados",
-  "necesitas": "bigotes de papel y cinta",
+  "titulo": "¡El elfo escalador!",
+  "necesitas": "escalerita y bastones de caramelo",
   "pasos": [
-   "Recorta los bigotes de papel de la caja.",
-   "Pégalos con cinta en las fotos de la familia.",
-   "Ponle uno al elfo y déjalo junto a las fotos."
+   "Recarga la escalerita en un mueble (librero o repisa).",
+   "Cuelga los bastones como si el elfo trepara con ellos.",
+   "Tira al piso las cosas del mueble y deja al elfo arriba, ¡lo logró!"
   ],
   "extra": "",
   "img": "img/bromas/broma-04.jpg",
@@ -156,8 +165,8 @@ const BROMAS = [
  },
  {
   "n": 6,
-  "titulo": "¡Leche verde!",
-  "necesitas": "colorante verde y leche",
+  "titulo": "¡Leche de colores!",
+  "necesitas": "colorante para comida y leche",
   "pasos": [
    "Pon 2 o 3 gotas de colorante en la leche.",
    "Mezcla y regrésala al refri.",
@@ -199,13 +208,13 @@ const BROMAS = [
  {
   "n": 9,
   "titulo": "¡El elfo Picasso!",
-  "necesitas": "pincelito, lienzo y tripié de la caja",
+  "necesitas": "pincelito, lienzo, tripié y la pintura de la caja",
   "pasos": [
-   "Arma el tripié y pon el lienzo encima.",
-   "Pinta un dibujito sencillo en el lienzo.",
-   "Pon al elfo con el pincel en la mano, ¡como gran artista!"
+   "Arma el tripié con el lienzo: pinta algo o déjalo para tu peque.",
+   "Pon la pintura junto al elfo, ¡bien apachurrada!",
+   "Ponle el pincel en la mano, ¡como gran artista!"
   ],
-  "extra": "",
+  "extra": "Es pintura de agua: se limpia fácil",
   "img": "img/bromas/broma-09.jpg",
   "tarjeta": "img/tarjetas/tarjeta-09.png",
   "video": ""
@@ -226,12 +235,12 @@ const BROMAS = [
  },
  {
   "n": 11,
-  "titulo": "Fiesta de globos",
-  "necesitas": "globos de colores",
+  "titulo": "¡Post-its por todos lados!",
+  "necesitas": "los post-its navideños de la caja",
   "pasos": [
-   "Infla los globos de la caja.",
-   "Llena con ellos el cuarto o la entrada de la casa.",
-   "Amarra al elfo a un globo como si fuera a volar."
+   "Saca los post-its dibujados que vienen en tu caja.",
+   "Pégalos por toda la cocina: refri, alacenas y mesa.",
+   "Deja al elfo con un post-it en la mano, ¡fue él!"
   ],
   "extra": "",
   "img": "img/bromas/broma-11.jpg",
@@ -241,11 +250,11 @@ const BROMAS = [
  {
   "n": 12,
   "titulo": "Ángel de nieve",
-  "necesitas": "harina o azúcar",
+  "necesitas": "el stencil de ángel de la caja y harina",
   "pasos": [
-   "Espolvorea harina sobre la mesa o una charola.",
-   "Acuesta al elfo y mueve sus brazos y piernas.",
-   "Levántalo con cuidado: ¡quedó un ángel de nieve!"
+   "Pon el stencil de ángel en la mesa o en el piso.",
+   "Esparce la harina encima y retira el stencil con cuidado.",
+   "Pon al elfo cerca o sobre la harina: ¡la figura perfecta!"
   ],
   "extra": "",
   "img": "img/bromas/broma-12.jpg",
@@ -254,12 +263,12 @@ const BROMAS = [
  },
  {
   "n": 13,
-  "titulo": "Noche de cine",
-  "necesitas": "palomitas y juguetes",
+  "titulo": "¡Búsqueda del tesoro!",
+  "necesitas": "monedas de chocolate",
   "pasos": [
-   "Prepara un platito con palomitas.",
-   "Sienta al elfo frente a la tele con los juguetes.",
-   "Pon una película navideña en la pantalla."
+   "Esconde las monedas de chocolate por toda la casa.",
+   "Deja al elfo con una moneda en la mano, ¡él las escondió!",
+   "¡A buscar! Gana quien encuentre más monedas."
   ],
   "extra": "",
   "img": "img/bromas/broma-13.jpg",
@@ -384,21 +393,6 @@ const BONUS = [
  },
  {
   "n": 3,
-  "titulo": "Iglú de vasos",
-  "necesitas": "vasos o biberones de plástico",
-  "pasos": [
-   "Acomoda vasos o biberones en círculo.",
-   "Apila más filas hacia adentro hasta cerrar el iglú.",
-   "Deja la entrada abierta y pon al elfo junto a su iglú."
-  ],
-  "extra": "",
-  "img": "img/bonus/bonus-03.jpg",
-  "tarjeta": "img/bonus/tarjeta-bonus-03.png",
-  "video": "",
-  "bonus": true
- },
- {
-  "n": 4,
   "titulo": "¡El café está listo!",
   "necesitas": "tazas de la casa y la cafetera",
   "pasos": [
@@ -408,6 +402,21 @@ const BONUS = [
    "Coloca al elfo sobre la cafetera."
   ],
   "extra": "",
+  "img": "img/bonus/bonus-03.jpg",
+  "tarjeta": "img/bonus/tarjeta-bonus-03.png",
+  "video": "",
+  "bonus": true
+ },
+ {
+  "n": 4,
+  "titulo": "¡Ladrón de galletas!",
+  "necesitas": "frasco o plato de galletas",
+  "pasos": [
+   "Mete al elfo en el frasco de galletas (o junto al plato).",
+   "Ponle una galleta mordida en la mano.",
+   "Riega unas migajas, ¡lo atraparon!"
+  ],
+  "extra": "",
   "img": "img/bonus/bonus-04.jpg",
   "tarjeta": "img/bonus/tarjeta-bonus-04.png",
   "video": "",
@@ -415,12 +424,12 @@ const BONUS = [
  },
  {
   "n": 5,
-  "titulo": "¡Ladrón de galletas!",
-  "necesitas": "frasco o plato de galletas",
+  "titulo": "El elfo hambriento",
+  "necesitas": "empaques vacíos de comida",
   "pasos": [
-   "Mete al elfo en el frasco de galletas (o junto al plato).",
-   "Ponle una galleta mordida en la mano.",
-   "Riega unas migajas, ¡lo atraparon!"
+   "Coloca al elfo dentro del refri o en la mesa de la cocina.",
+   "Junto a él pon empaques vacíos de la comida que tu peque come.",
+   "¡Se lo comió todo!"
   ],
   "extra": "",
   "img": "img/bonus/bonus-05.jpg",
@@ -430,12 +439,12 @@ const BONUS = [
  },
  {
   "n": 6,
-  "titulo": "El elfo hambriento",
-  "necesitas": "empaques vacíos de comida",
+  "titulo": "Montaña de ropa",
+  "necesitas": "ropa limpia y una almohada",
   "pasos": [
-   "Coloca al elfo dentro del refri o en la mesa de la cocina.",
-   "Junto a él pon empaques vacíos de la comida que tu peque come.",
-   "¡Se lo comió todo!"
+   "En la sala haz una montaña con la ropa limpia de todos.",
+   "Pon una almohada hasta arriba, como si se deslizara.",
+   "Sienta al elfo sobre la almohada, ¡a deslizarse!"
   ],
   "extra": "",
   "img": "img/bonus/bonus-06.jpg",
@@ -445,12 +454,12 @@ const BONUS = [
  },
  {
   "n": 7,
-  "titulo": "Montaña de ropa",
-  "necesitas": "ropa limpia y una almohada",
+  "titulo": "Cocinando a su peluche",
+  "necesitas": "molde de vidrio, peluche y verduras",
   "pasos": [
-   "En la sala haz una montaña con la ropa limpia de todos.",
-   "Pon una almohada hasta arriba, como si se deslizara.",
-   "Sienta al elfo sobre la almohada, ¡a deslizarse!"
+   "Pon un peluche dentro de un molde de vidrio.",
+   "Acomoda verduras alrededor y déjalo en la cocina.",
+   "Pon al elfo con una espátula, ¡como si lo cocinara!"
   ],
   "extra": "",
   "img": "img/bonus/bonus-07.jpg",
@@ -460,12 +469,12 @@ const BONUS = [
  },
  {
   "n": 8,
-  "titulo": "Cocinando a su peluche",
-  "necesitas": "molde de vidrio, peluche y verduras",
+  "titulo": "El elfo estudioso",
+  "necesitas": "la mochila de la escuela y un libro",
   "pasos": [
-   "Pon un peluche dentro de un molde de vidrio.",
-   "Acomoda verduras alrededor y déjalo en la cocina.",
-   "Pon al elfo con una espátula, ¡como si lo cocinara!"
+   "Saca todas las cosas de la mochila y riégalas en el piso.",
+   "Deja la mochila abierta a un lado del elfo.",
+   "Siéntalo con un libro abierto en las manos, ¡a estudiar!"
   ],
   "extra": "",
   "img": "img/bonus/bonus-08.jpg",
@@ -511,6 +520,132 @@ BONUS.forEach((b,i)=>{
   rejB.appendChild(el);
 });
 
+// REGALO: travesuras de las tarjetas amarillas (también pueden llevar video)
+const REGALO = [
+ {
+  "n": 1,
+  "titulo": "¡Iglú de vasos!",
+  "necesitas": "los vasos decorados de la caja",
+  "pasos": [
+   "Acomoda los vasos en círculo en el piso.",
+   "Apila más filas hacia adentro hasta cerrar el iglú.",
+   "Deja la entrada abierta y pon al elfo junto a su iglú."
+  ],
+  "extra": "",
+  "img": "img/regalo/regalo-01.jpg",
+  "tarjeta": "img/regalo/tarjeta-regalo-01.png",
+  "video": "",
+  "regalo": true
+ },
+ {
+  "n": 2,
+  "titulo": "¡Atrapado en el juguito!",
+  "necesitas": "el vaso grande de juguito de la caja",
+  "pasos": [
+   "Mete al elfo dentro del vaso grande de juguito.",
+   "Que se asome por arriba, ¡como si no pudiera salir!",
+   "Deja el popote a un lado: ¡se lo tomó todo y quedó atrapado!"
+  ],
+  "extra": "",
+  "img": "img/regalo/regalo-02.jpg",
+  "tarjeta": "img/regalo/tarjeta-regalo-02.png",
+  "video": "",
+  "regalo": true
+ },
+ {
+  "n": 3,
+  "titulo": "¡Función de teatro!",
+  "necesitas": "el teatro y los títeres de MDF de la caja",
+  "pasos": [
+   "Arma el teatro de MDF con sus títeres.",
+   "Sienta a los juguetes enfrente con un tazón de palomitas.",
+   "Riega unas palomitas y pon al elfo junto al teatro."
+  ],
+  "extra": "",
+  "img": "img/regalo/regalo-03.jpg",
+  "tarjeta": "img/regalo/tarjeta-regalo-03.png",
+  "video": "",
+  "regalo": true
+ },
+ {
+  "n": 4,
+  "titulo": "¡Serpentinas en el techo!",
+  "necesitas": "las serpentinas plateadas de la caja",
+  "pasos": [
+   "Cuelga las serpentinas plateadas por todo el techo.",
+   "Deja algunas colgando hasta abajo, ¡como lluvia!",
+   "Pon al elfo en un mueble alto con una serpentina en la mano."
+  ],
+  "extra": "",
+  "img": "img/regalo/regalo-04.jpg",
+  "tarjeta": "img/regalo/tarjeta-regalo-04.png",
+  "video": "",
+  "regalo": true
+ },
+ {
+  "n": 5,
+  "titulo": "¡La comida se hizo chiquita!",
+  "necesitas": "la comida de juguete de la caja",
+  "pasos": [
+   "Saca casi todo del refri y guárdalo en otro lado.",
+   "Pon platitos en el refri con la comida chiquita.",
+   "Deja al elfo junto a los platos: ¡la comida se encogió!"
+  ],
+  "extra": "",
+  "img": "img/regalo/regalo-05.jpg",
+  "tarjeta": "img/regalo/tarjeta-regalo-05.png",
+  "video": "",
+  "regalo": true
+ },
+ {
+  "n": 6,
+  "titulo": "¡Manchas de colores!",
+  "necesitas": "el foami moldeable de la caja",
+  "pasos": [
+   "Haz bolitas de foami de 3 colores.",
+   "Aplástalas en la mesa como si fueran manchas.",
+   "Pon al elfo junto a las manchas. ¡El resto es para tu peque!"
+  ],
+  "extra": "",
+  "img": "img/regalo/regalo-06.jpg",
+  "tarjeta": "img/regalo/tarjeta-regalo-06.png",
+  "video": "",
+  "regalo": true
+ }
+];
+const CANDADO_R='<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2.6" fill="none"/></svg>';
+function regaloAbierto(){try{return localStorage.getItem("elfo-codigo-regalo")===limpiar(CODIGO_REGALO);}catch(e){return false;}}
+function marcarRegalo(){ if(!regaloAbierto()) return; document.querySelectorAll(".r-num").forEach(l=>l.textContent="DE REGALO"); document.querySelectorAll(".broma.regalo img[data-img]").forEach(im=>im.src=im.dataset.img); }
+function pedirCodigoRegalo(i){
+  cuerpo.innerHTML=`<form class="cod-form" autocomplete="off">
+    <img src="img/elfo-caja.png" alt="">
+    <span class="etiqueta">Travesura de regalo</span>
+    <h2>¡Código de regalo!</h2>
+    <p>Escribe el código que viene atrás de tu tarjeta amarilla.</p>
+    <label for="codigo-r" class="sr">Código de regalo</label>
+    <input id="codigo-r" type="text" placeholder="Tu código" required>
+    <button class="btn btn-rojo" type="submit">Ver travesura</button>
+    <p class="error" role="alert"></p>
+  </form>`;
+  abrir("foto-modal");
+  const f=cuerpo.querySelector("form"), inp=f.querySelector("input");
+  setTimeout(()=>inp.focus(),50);
+  f.addEventListener("submit",e=>{
+    e.preventDefault();
+    if(limpiar(inp.value)===limpiar(CODIGO_REGALO)){ try{localStorage.setItem("elfo-codigo-regalo",limpiar(CODIGO_REGALO));}catch(err){} marcarRegalo(); abrirBroma(i,REGALO); }
+    else f.querySelector(".error").textContent="Ese código no es correcto. Búscalo atrás de tu tarjeta amarilla.";
+  });
+}
+const rejR=document.getElementById("rejilla-regalo");
+REGALO.forEach((b,i)=>{
+  const el=document.createElement("button");
+  el.className="broma regalo"; el.type="button";
+  el.innerHTML=`<img src="${regaloAbierto()?b.img:"img/regalo/sorpresa.jpg"}" data-img="${b.img}" alt="" loading="lazy"><span class="play">${PLAY}</span><span class="info"><span class="num r-num">${regaloAbierto()?"DE REGALO":CANDADO_R+" CON CÓDIGO"}</span><span class="tit">${esc(b.titulo)}</span></span>`;
+  el.addEventListener("click",()=>regaloAbierto()?abrirBroma(i,REGALO):pedirCodigoRegalo(i));
+  rejR.appendChild(el);
+});
+marcarRegalo();
+
 // Modal
 const modal=document.getElementById("modal"), cuerpo=document.getElementById("modal-cuerpo");
 function abrir(clase){modal.className="modal abierto "+(clase||"");document.body.style.overflow="hidden";document.getElementById("cerrar").focus();}
@@ -525,7 +660,7 @@ function abrirBroma(i,lista){
     ? `<video src="${b.video}" controls playsinline autoplay></video>`
     : `<div class="prox"><img src="${b.img}" alt=""><b>Video próximamente</b><span>Mientras tanto, sigue los pasos de abajo o la tarjeta.</span></div>`;
   cuerpo.innerHTML=`<div class="video">${video}</div>
-    <div class="detalle"><span class="etiqueta">${b.bonus?"Idea bonus "+b.n:"Travesura #"+b.n}</span><h3>${esc(b.titulo)}</h3>
+    <div class="detalle"><span class="etiqueta">${b.regalo?"Travesura de regalo":b.bonus?"Idea bonus "+b.n:"Travesura #"+b.n}</span><h3>${esc(b.titulo)}</h3>
     <div class="nec"><strong>Necesitas:</strong> ${esc(b.necesitas)}</div>
     <ol>${b.pasos.map(p=>`<li><span>${esc(p)}</span></li>`).join("")}</ol>
     ${b.extra?`<div class="extra">★ Extra: ${esc(b.extra)}</div>`:""}
