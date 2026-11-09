@@ -268,3 +268,8 @@ footer{padding-bottom:96px}
 .broma.regalo{position:relative}
 .r-lock{position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:5px;background:var(--rojo);color:#fff;font-weight:700;font-size:12px;padding:5px 10px;border-radius:99px;box-shadow:0 3px 8px rgba(0,0,0,.18)}
 .r-num{display:inline-flex;align-items:center;gap:5px}
+/* Fotos de la tienda: tamaño fijo dentro del cuadro (arreglo para Safari) */
+.foto-p{position:relative;overflow:hidden;flex:0 0 auto;width:100%;height:0;padding-bottom:100%;aspect-ratio:auto}
+.foto-p img:first-child{position:absolute;left:7%;top:7%;width:86%;height:86%;object-fit:contain}
+.foto-p.real img:first-child{left:0;top:0;width:100%;height:100%;object-fit:cover}
+.foto-p .asoma{z-index:1}
