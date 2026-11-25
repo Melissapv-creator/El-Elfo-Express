@@ -20,6 +20,7 @@
       <a href="bromas.html" data-sec="bromas">Travesuras</a>
       <a href="galeria.html" data-sec="galeria">Galería</a>
       <a href="tienda.html" data-sec="tienda" class="activo">Tienda</a>
+      <a href="juegos.html" data-sec="juegos">Juegos</a>
     </nav>
   </div>
 </header>
@@ -61,14 +62,16 @@ const WHATSAPP_TIENDA = "524498051413";
 // Para cambiar un precio, escribe el texto en "precio" (por ejemplo "$250"). Si lo dejas vacío dice «Pregunta por el precio».
 // FOTOS REALES: sube la foto a img/tienda/fotos/ y escribe la ruta en "foto", por ejemplo "img/tienda/fotos/caja.jpg".
 // Mientras "foto" esté vacío se muestra el dibujo.
+// VARIAS FOTOS: escribe la lista en "fotos" (se pueden deslizar o cambiar con los puntitos).
 const PRODUCTOS = [
  {
   "id": "caja",
   "nombre": "Caja Mágica 2026",
   "desc": "18 travesuras con materiales, sobre de MDF, cartas, acta, notitas, videos paso a paso y 8 ideas bonus.",
-  "precio": "$1,000",
-  "nota": "Preventa antes del 20 de nov · después $1,150",
-  "foto": "",
+  "precio": "$1,150",
+  "nota": "Aparta con el 50%",
+  "foto": "img/tienda/fotos/caja-1.jpg",
+  "fotos": ["img/tienda/fotos/caja-1.jpg", "img/tienda/fotos/caja-2.jpg", "img/tienda/fotos/caja-3.jpg"],
   "img": "img/tienda/caja-magica.png",
   "destacado": true
  },
@@ -136,7 +139,7 @@ PRODUCTOS.forEach(p=>{
   const el=document.createElement("article");
   el.className="producto"+(p.destacado?" destacado":"");
   el.innerHTML=`${p.destacado?'<span class="cinta">Más vendido</span>':''}
-    <div class="foto-p${p.foto?" real":""}"><img src="${p.foto||p.img}" alt="${esc(p.nombre)}" loading="lazy"><img class="asoma" src="img/tienda/elfo-asomado.png" alt=""></div>
+    <div class="foto-p${p.foto?" real":""}"><img src="${p.foto||p.img}" alt="${esc(p.nombre)}" loading="lazy"><img class="asoma" src="img/tienda/elfo-asomado.png" alt=""></div>${(p.fotos&&p.fotos.length>1)?`<div class="fp-puntos">${p.fotos.map((f,i)=>`<button type="button" aria-label="Foto ${i+1}"${i?"":' class="on"'}></button>`).join("")}</div>`:""}
     <div class="cuerpo-p">
       <h3>${esc(p.nombre)}</h3>
       <p>${esc(p.desc)}</p>
@@ -146,6 +149,15 @@ PRODUCTOS.forEach(p=>{
         Lo quiero</a>
     </div>`;
   lista.appendChild(el);
+  if(p.fotos&&p.fotos.length>1){
+    const caja=el.querySelector(".foto-p"), im=caja.querySelector("img"), pts=[...el.querySelectorAll(".fp-puntos button")];
+    let k=0; p.fotos.slice(1).forEach(f=>{const pre=new Image();pre.src=f;});
+    const ir=n=>{k=(n+p.fotos.length)%p.fotos.length; im.src=p.fotos[k]; pts.forEach((b,i)=>b.classList.toggle("on",i===k));};
+    pts.forEach((b,i)=>b.addEventListener("click",()=>ir(i)));
+    im.addEventListener("click",()=>ir(k+1)); im.style.cursor="pointer";
+    let x0=null; caja.addEventListener("touchstart",e=>{x0=e.touches[0].clientX;},{passive:true});
+    caja.addEventListener("touchend",e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>35)ir(k+(dx<0?1:-1));x0=null;});
+  }
 });
 </script>
 </body>

@@ -273,3 +273,16 @@ footer{padding-bottom:96px}
 .foto-p img:first-child{position:absolute;left:7%;top:7%;width:86%;height:86%;object-fit:contain}
 .foto-p.real img:first-child{left:0;top:0;width:100%;height:100%;object-fit:cover}
 .foto-p .asoma{z-index:1}
+/* Menú con 5 hojas en celular */
+@media (max-width:430px){ nav{gap:2px;flex-wrap:wrap;justify-content:center} nav a{padding:6px 8px;font-size:12.5px} }
+/* Varias fotos en un producto de la tienda */
+.fp-puntos{display:flex;justify-content:center;gap:8px;padding:12px 0 0}
+.fp-puntos button{width:11px;height:11px;padding:0;border:0;border-radius:99px;background:#CFC6B8;cursor:pointer;transition:width .25s,background .25s}
+.fp-puntos button.on{width:24px;background:var(--verde)}
+/* Travesuras pendientes de desbloquear */
+.broma.pendiente img{filter:grayscale(.85) brightness(1.05);opacity:.6}
+.broma.pendiente .candado-p{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;background:#8C8079;display:grid;place-items:center;box-shadow:0 3px 8px rgba(0,0,0,.2)}
+.broma.pendiente .tit{color:#8C8079}
+.broma.pendiente .num{background:#B5ABA4}
+.broma .aviso-p{display:block;margin:-6px 12px 12px;font-size:12px;font-weight:700;color:var(--rojo);line-height:1.3}
+.broma.regalo.pendiente .aviso-p{color:#7A2310}

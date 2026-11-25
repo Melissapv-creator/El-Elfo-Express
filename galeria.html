@@ -20,6 +20,7 @@
       <a href="bromas.html" data-sec="bromas">Travesuras</a>
       <a href="galeria.html" data-sec="galeria" class="activo">Galería</a>
       <a href="tienda.html" data-sec="tienda">Tienda</a>
+      <a href="juegos.html" data-sec="juegos">Juegos</a>
     </nav>
   </div>
 </header>
@@ -123,7 +124,12 @@ const carF=document.getElementById("car-fotos");
 // Código mágico
 const CANDADO='<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2.6" fill="none"/></svg>';
 const limpiar=t=>String(t).trim().toUpperCase().replace(/\s+/g,"");
-function abiertas(){try{return localStorage.getItem("elfo-codigo")===limpiar(CODIGO);}catch(e){return false;}}
+// El código se pide CADA vez que se abre la página (no se guarda en el celular)
+try{localStorage.removeItem("elfo-codigo");localStorage.removeItem("elfo-codigo-regalo");}catch(e){}
+let entro=false;
+// Si regresan con el botón "atrás", se vuelve a cargar para pedir el código otra vez
+window.addEventListener("pageshow",e=>{if(e.persisted)location.reload();});
+function abiertas(){return entro;}
 function marcarAbiertas(){ if(abiertas()) document.querySelectorAll(".cf-lock").forEach(l=>l.remove()); }
 function pedirCodigo(g){
   cuerpo.innerHTML=`<form class="cod-form" autocomplete="off">
@@ -132,7 +138,7 @@ function pedirCodigo(g){
     <h2>¡Caricatura secreta!</h2>
     <p>Escribe el código mágico que viene en tu caja para ver «${esc(g.titulo)}».</p>
     <label for="codigo-g" class="sr">Código mágico</label>
-    <input id="codigo-g" type="text" placeholder="Tu código" required>
+    <input id="codigo-g" type="text" autocomplete="off" placeholder="Tu código" required>
     <button class="btn btn-rojo" type="submit">Ver caricatura</button>
     <p class="error" role="alert"></p>
     <p class="ayuda">¿No tienes tu caja? <a href="index.html#precios">Aparta la tuya aquí</a></p>
@@ -143,7 +149,7 @@ function pedirCodigo(g){
   f.addEventListener("submit",e=>{
     e.preventDefault();
     const v=limpiar(inp.value);
-    if(v===limpiar(CODIGO)){ try{localStorage.setItem("elfo-codigo",v);}catch(err){} marcarAbiertas(); abrirGaleria(g); }
+    if(v===limpiar(CODIGO)){ entro=true; marcarAbiertas(); abrirGaleria(g); }
     else f.querySelector(".error").textContent="Ese código no es correcto. Revísalo en tu caja e inténtalo otra vez.";
   });
 }

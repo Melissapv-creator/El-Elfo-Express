@@ -20,6 +20,7 @@
       <a href="bromas.html" data-sec="bromas" class="activo">Travesuras</a>
       <a href="galeria.html" data-sec="galeria">Galería</a>
       <a href="tienda.html" data-sec="tienda">Tienda</a>
+      <a href="juegos.html" data-sec="juegos">Juegos</a>
     </nav>
   </div>
 </header>
@@ -31,7 +32,7 @@
     <h2>¡Hola, ayudante del elfo!</h2>
     <p>Escribe el código mágico que viene en tu caja para ver las travesuras.</p>
     <label for="codigo" class="sr">Código mágico</label>
-    <input id="codigo" name="codigo" type="text" inputmode="text" placeholder="Tu código" required>
+    <input id="codigo" name="codigo" type="text" autocomplete="off" inputmode="text" placeholder="Tu código" required>
     <button class="btn btn-rojo" type="submit">Entrar</button>
     <p class="error" id="error-codigo" role="alert"></p>
     <p class="ayuda">¿No tienes tu caja? <a href="index.html#precios">Aparta la tuya aquí</a></p>
@@ -47,12 +48,6 @@
       <p class="intro">Escoge una travesura y mira cómo se hace. Cada una tiene su video, los pasos y su tarjeta.</p>
     </div>
     <div class="rejilla" id="rejilla"></div>
-    <div class="bonus-cabeza">
-      <span class="bonus-sello">BONUS</span>
-      <h2>8 ideas extra</h2>
-      <p class="intro">Travesuras para hacer con cosas que ya tienes en casa.</p>
-    </div>
-    <div class="rejilla rejilla-bonus" id="rejilla-bonus"></div>
     <div class="bonus-cabeza regalo-cabeza">
       <span class="regalo-sello">🎁 DE REGALO</span>
       <h2>Travesuras de regalo</h2>
@@ -90,6 +85,8 @@ const MENSAJE = "Hola, me interesa adquirir una Caja Mágica 🎄";
 const CODIGO = "MAGIA2026";
 // Código extra para las travesuras de regalo (viene atrás de la tarjeta amarilla)
 const CODIGO_REGALO = "EXPRESS2026";
+// Las travesuras SIN video se muestran "pendientes de desbloquear". Cuando subas su video y escribas su ruta en "video", se desbloquean solas.
+const AVISO_DESBLOQUEO = "Se desbloquea antes del 1 de diciembre";
 
 // BROMAS: para agregar un video, escribe la ruta en "video", por ejemplo "videos/bromas/broma-01.mp4"
 const BROMAS = [
@@ -119,7 +116,7 @@ const BROMAS = [
   "extra": "",
   "img": "img/bromas/broma-02.jpg",
   "tarjeta": "img/tarjetas/tarjeta-02.png",
-  "video": ""
+  "video": "videos/bromas/broma-02.mp4"
  },
  {
   "n": 3,
@@ -133,7 +130,7 @@ const BROMAS = [
   "extra": "",
   "img": "img/bromas/broma-03.jpg",
   "tarjeta": "img/tarjetas/tarjeta-03.png",
-  "video": ""
+  "video": "videos/bromas/broma-03.mp4"
  },
  {
   "n": 4,
@@ -175,7 +172,7 @@ const BROMAS = [
   "extra": "¡Hagan también el desayuno de colores!",
   "img": "img/bromas/broma-06.jpg",
   "tarjeta": "img/tarjetas/tarjeta-06.png",
-  "video": ""
+  "video": "videos/bromas/broma-06.mp4"
  },
  {
   "n": 7,
@@ -217,7 +214,7 @@ const BROMAS = [
   "extra": "Es pintura de agua: se limpia fácil",
   "img": "img/bromas/broma-09.jpg",
   "tarjeta": "img/tarjetas/tarjeta-09.png",
-  "video": ""
+  "video": "videos/bromas/broma-09.mp4"
  },
  {
   "n": 10,
@@ -231,7 +228,7 @@ const BROMAS = [
   "extra": "",
   "img": "img/bromas/broma-10.jpg",
   "tarjeta": "img/tarjetas/tarjeta-10.png",
-  "video": ""
+  "video": "videos/bromas/broma-10.mp4"
  },
  {
   "n": 11,
@@ -259,7 +256,7 @@ const BROMAS = [
   "extra": "",
   "img": "img/bromas/broma-12.jpg",
   "tarjeta": "img/tarjetas/tarjeta-12.png",
-  "video": ""
+  "video": "videos/bromas/broma-12.mp4"
  },
  {
   "n": 13,
@@ -359,166 +356,49 @@ document.querySelectorAll(".js-whatsapp").forEach(a=>{
   else a.href="#precios";
 });
 
-// BONUS: ideas extra (también pueden llevar video)
-const BONUS = [
- {
-  "n": 1,
-  "titulo": "Trineo de zapatos",
-  "necesitas": "zapatos de la familia, muñecas y peluches",
-  "pasos": [
-   "Coloca en fila varios zapatos de los integrantes de la familia.",
-   "En cada zapato pon una muñeca o peluche.",
-   "En el primer zapato pon al elfo, ¡él maneja!"
-  ],
-  "extra": "",
-  "img": "img/bonus/bonus-01.jpg",
-  "tarjeta": "img/bonus/tarjeta-bonus-01.png",
-  "video": "",
-  "bonus": true
- },
- {
-  "n": 2,
-  "titulo": "Guerra de bolas de nieve",
-  "necesitas": "calcetines blancos y cojines",
-  "pasos": [
-   "Haz bolitas con calcetines blancos.",
-   "Arma un fuerte con cojines y esconde a los peluches.",
-   "Pon al elfo con una bola en la mano, ¡listo para lanzar!"
-  ],
-  "extra": "",
-  "img": "img/bonus/bonus-02.jpg",
-  "tarjeta": "img/bonus/tarjeta-bonus-02.png",
-  "video": "",
-  "bonus": true
- },
- {
-  "n": 3,
-  "titulo": "¡El café está listo!",
-  "necesitas": "tazas de la casa y la cafetera",
-  "pasos": [
-   "Saca todas las tazas de tu casa.",
-   "Ponlas alrededor de la cafetera.",
-   "Llénalas con agua y un poco de café.",
-   "Coloca al elfo sobre la cafetera."
-  ],
-  "extra": "",
-  "img": "img/bonus/bonus-03.jpg",
-  "tarjeta": "img/bonus/tarjeta-bonus-03.png",
-  "video": "",
-  "bonus": true
- },
- {
-  "n": 4,
-  "titulo": "¡Ladrón de galletas!",
-  "necesitas": "frasco o plato de galletas",
-  "pasos": [
-   "Mete al elfo en el frasco de galletas (o junto al plato).",
-   "Ponle una galleta mordida en la mano.",
-   "Riega unas migajas, ¡lo atraparon!"
-  ],
-  "extra": "",
-  "img": "img/bonus/bonus-04.jpg",
-  "tarjeta": "img/bonus/tarjeta-bonus-04.png",
-  "video": "",
-  "bonus": true
- },
- {
-  "n": 5,
-  "titulo": "El elfo hambriento",
-  "necesitas": "empaques vacíos de comida",
-  "pasos": [
-   "Coloca al elfo dentro del refri o en la mesa de la cocina.",
-   "Junto a él pon empaques vacíos de la comida que tu peque come.",
-   "¡Se lo comió todo!"
-  ],
-  "extra": "",
-  "img": "img/bonus/bonus-05.jpg",
-  "tarjeta": "img/bonus/tarjeta-bonus-05.png",
-  "video": "",
-  "bonus": true
- },
- {
-  "n": 6,
-  "titulo": "Montaña de ropa",
-  "necesitas": "ropa limpia y una almohada",
-  "pasos": [
-   "En la sala haz una montaña con la ropa limpia de todos.",
-   "Pon una almohada hasta arriba, como si se deslizara.",
-   "Sienta al elfo sobre la almohada, ¡a deslizarse!"
-  ],
-  "extra": "",
-  "img": "img/bonus/bonus-06.jpg",
-  "tarjeta": "img/bonus/tarjeta-bonus-06.png",
-  "video": "",
-  "bonus": true
- },
- {
-  "n": 7,
-  "titulo": "Cocinando a su peluche",
-  "necesitas": "molde de vidrio, peluche y verduras",
-  "pasos": [
-   "Pon un peluche dentro de un molde de vidrio.",
-   "Acomoda verduras alrededor y déjalo en la cocina.",
-   "Pon al elfo con una espátula, ¡como si lo cocinara!"
-  ],
-  "extra": "",
-  "img": "img/bonus/bonus-07.jpg",
-  "tarjeta": "img/bonus/tarjeta-bonus-07.png",
-  "video": "",
-  "bonus": true
- },
- {
-  "n": 8,
-  "titulo": "El elfo estudioso",
-  "necesitas": "la mochila de la escuela y un libro",
-  "pasos": [
-   "Saca todas las cosas de la mochila y riégalas en el piso.",
-   "Deja la mochila abierta a un lado del elfo.",
-   "Siéntalo con un libro abierto en las manos, ¡a estudiar!"
-  ],
-  "extra": "",
-  "img": "img/bonus/bonus-08.jpg",
-  "tarjeta": "img/bonus/tarjeta-bonus-08.png",
-  "video": "",
-  "bonus": true
- }
-];
+
 
 // Candado con código
 const candado=document.getElementById("candado");
 const limpiar=t=>String(t).trim().toUpperCase().replace(/\s+/g,"");
-function abiertas(){try{return localStorage.getItem("elfo-codigo")===limpiar(CODIGO);}catch(e){return false;}}
+// El código se pide CADA vez que se abre la página (no se guarda en el celular)
+try{localStorage.removeItem("elfo-codigo");localStorage.removeItem("elfo-codigo-regalo");}catch(e){}
+let entro=false;
+// Si regresan con el botón "atrás", se vuelve a cargar para pedir el código otra vez
+window.addEventListener("pageshow",e=>{if(e.persisted)location.reload();});
+function abiertas(){return entro;}
 if(abiertas()) candado.hidden=true; else document.body.style.overflow="hidden";
 document.getElementById("form-codigo").addEventListener("submit",e=>{
   e.preventDefault();
   const v=limpiar(document.getElementById("codigo").value);
   if(v===limpiar(CODIGO)){
-    try{localStorage.setItem("elfo-codigo",v);}catch(err){}
+    entro=true;
     candado.hidden=true; document.body.style.overflow="";
   } else {
     document.getElementById("error-codigo").textContent="Ese código no es correcto. Revísalo en tu caja e inténtalo otra vez.";
   }
 });
 
+// Travesuras pendientes de desbloquear
+const CANDADO_P='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3" fill="#fff"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="#fff" stroke-width="2.6" fill="none"/></svg>';
+function avisoPendiente(titulo){
+  cuerpo.innerHTML=`<div class="cod-form"><img src="img/elfo-caja.png" alt=""><span class="etiqueta">Muy pronto</span>
+    <h2>¡Todavía está en el Polo Norte!</h2><p>«${esc(titulo)}» ${AVISO_DESBLOQUEO.toLowerCase()}. El elfo está terminando de grabar el video.</p>
+    <button class="btn btn-rojo" type="button" id="ok-p">¡Entendido!</button></div>`;
+  abrir("foto-modal"); const ok=document.getElementById("ok-p"); ok.focus(); ok.onclick=cerrar;
+}
 // Rejilla de bromas
 const rej=document.getElementById("rejilla");
 BROMAS.forEach((b,i)=>{
   const el=document.createElement("button");
-  el.className="broma"; el.type="button";
-  el.innerHTML=`<img src="${b.img}" alt="" loading="lazy"><span class="play">${PLAY}</span><span class="info"><span class="num">#${b.n}</span><span class="tit">${esc(b.titulo)}</span></span>`;
-  el.addEventListener("click",()=>abrirBroma(i));
+  const pend=!b.video;
+  el.className="broma"+(pend?" pendiente":""); el.type="button";
+  el.innerHTML=`<img src="${b.img}" alt="" loading="lazy">${pend?`<span class="candado-p">${CANDADO_P}</span>`:`<span class="play">${PLAY}</span>`}<span class="info"><span class="num">#${b.n}</span><span class="tit">${esc(b.titulo)}</span></span>${pend?`<span class="aviso-p">${AVISO_DESBLOQUEO}</span>`:""}`;
+  el.addEventListener("click",()=>pend?avisoPendiente(b.titulo):abrirBroma(i));
   rej.appendChild(el);
 });
 
-// Rejilla de bonus
-const rejB=document.getElementById("rejilla-bonus");
-BONUS.forEach((b,i)=>{
-  const el=document.createElement("button");
-  el.className="broma bonus"; el.type="button";
-  el.innerHTML=`<img src="${b.img}" alt="" loading="lazy"><span class="play">${PLAY}</span><span class="info"><span class="num">BONUS ${b.n}</span><span class="tit">${esc(b.titulo)}</span></span>`;
-  el.addEventListener("click",()=>abrirBroma(i,BONUS));
-  rejB.appendChild(el);
-});
+// (Las ideas bonus ya no se muestran en esta hoja; vienen solo en las tarjetas verdes de la caja)
 
 // REGALO: travesuras de las tarjetas amarillas (también pueden llevar video)
 const REGALO = [
@@ -614,7 +494,8 @@ const REGALO = [
  }
 ];
 const CANDADO_R='<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2.6" fill="none"/></svg>';
-function regaloAbierto(){try{return localStorage.getItem("elfo-codigo-regalo")===limpiar(CODIGO_REGALO);}catch(e){return false;}}
+let entroRegalo=false;
+function regaloAbierto(){return entroRegalo;}
 function marcarRegalo(){ if(!regaloAbierto()) return; document.querySelectorAll(".r-num").forEach(l=>l.textContent="DE REGALO"); document.querySelectorAll(".broma.regalo img[data-img]").forEach(im=>im.src=im.dataset.img); }
 function pedirCodigoRegalo(i){
   cuerpo.innerHTML=`<form class="cod-form" autocomplete="off">
@@ -623,7 +504,7 @@ function pedirCodigoRegalo(i){
     <h2>¡Código de regalo!</h2>
     <p>Escribe el código que viene atrás de tu tarjeta amarilla.</p>
     <label for="codigo-r" class="sr">Código de regalo</label>
-    <input id="codigo-r" type="text" placeholder="Tu código" required>
+    <input id="codigo-r" type="text" autocomplete="off" placeholder="Tu código" required>
     <button class="btn btn-rojo" type="submit">Ver travesura</button>
     <p class="error" role="alert"></p>
   </form>`;
@@ -632,16 +513,17 @@ function pedirCodigoRegalo(i){
   setTimeout(()=>inp.focus(),50);
   f.addEventListener("submit",e=>{
     e.preventDefault();
-    if(limpiar(inp.value)===limpiar(CODIGO_REGALO)){ try{localStorage.setItem("elfo-codigo-regalo",limpiar(CODIGO_REGALO));}catch(err){} marcarRegalo(); abrirBroma(i,REGALO); }
+    if(limpiar(inp.value)===limpiar(CODIGO_REGALO)){ entroRegalo=true; marcarRegalo(); abrirBroma(i,REGALO); }
     else f.querySelector(".error").textContent="Ese código no es correcto. Búscalo atrás de tu tarjeta amarilla.";
   });
 }
 const rejR=document.getElementById("rejilla-regalo");
 REGALO.forEach((b,i)=>{
   const el=document.createElement("button");
-  el.className="broma regalo"; el.type="button";
-  el.innerHTML=`<img src="${regaloAbierto()?b.img:"img/regalo/sorpresa.jpg"}" data-img="${b.img}" alt="" loading="lazy"><span class="play">${PLAY}</span><span class="info"><span class="num r-num">${regaloAbierto()?"DE REGALO":CANDADO_R+" CON CÓDIGO"}</span><span class="tit">${esc(b.titulo)}</span></span>`;
-  el.addEventListener("click",()=>regaloAbierto()?abrirBroma(i,REGALO):pedirCodigoRegalo(i));
+  const pend=!b.video;
+  el.className="broma regalo"+(pend?" pendiente":""); el.type="button";
+  el.innerHTML=`<img src="${regaloAbierto()&&!pend?b.img:"img/regalo/sorpresa.jpg"}" data-img="${pend?"img/regalo/sorpresa.jpg":b.img}" alt="" loading="lazy">${pend?`<span class="candado-p">${CANDADO_P}</span>`:`<span class="play">${PLAY}</span>`}<span class="info"><span class="num r-num">${regaloAbierto()?"DE REGALO":CANDADO_R+" CON CÓDIGO"}</span><span class="tit">${esc(b.titulo)}</span></span>${pend?`<span class="aviso-p">${AVISO_DESBLOQUEO}</span>`:""}`;
+  el.addEventListener("click",()=>pend?avisoPendiente(b.titulo):(regaloAbierto()?abrirBroma(i,REGALO):pedirCodigoRegalo(i)));
   rejR.appendChild(el);
 });
 marcarRegalo();
